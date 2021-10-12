@@ -23,7 +23,6 @@ $db = new Repse\Sa\databese\DB();
 $message = new Repse\Sa\support\MessageBag();
 
 $request = new Repse\Sa\http\Request();
-$request->getRequest();
 
 $sanitizer = new Repse\Sa\support\Sanitizer($purifier);
 
@@ -38,5 +37,13 @@ $articleController = new Repse\Sa\controllers\ArticleController($selector,$artic
 //$article->getArticle('allwin','3');
 //move one dir up dirme(__DIR__,1)
 //dd($articleController->getArticleFromCache('terror',1));
+//NOTE $message->style(supports boostrap styles)->add('key','text');
+/**
+ * step one set fake request 
+ * step two send it to controller
+ */ 
+//$fakedata = ['username'=>'Marthas9','password'=>'A12a3456789$','password_again'=>'A12a3456789$','email'=>'lovecky@seznam.cz','type'=>'register','persisted_register'=>'yes'];
+//$request->getRequest($fakedata);
+//dd($requestController->submitRegister($request),$message);
 
-echo $blade->run('incl.app',include_once(__DIR__ . '/app/viewVariables.php'));
+//echo $blade->run('incl.app',include_once(__DIR__ . '/app/viewVariables.php'));

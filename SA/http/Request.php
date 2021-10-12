@@ -6,6 +6,14 @@ class Request{
 
     public function getRequest() : void
     {
+        //REVIEW only for testing delete after 
+        $args = func_get_args();
+        if (isset($args)) {
+            foreach ($args[0] as $key => $value)
+            {
+                $this->{$key} = $value;
+            }
+        }
         foreach ($_POST as $key =>$value)
             $this->{$key} = $value;
     }

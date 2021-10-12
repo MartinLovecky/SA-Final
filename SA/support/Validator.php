@@ -2,6 +2,7 @@
 
 namespace Repse\Sa\support;
 
+use Repse\Sa\http\Request;
 use eftec\bladeone\BladeOne;
 use Repse\Sa\support\MessageBag;
 use Repse\Sa\databese\user\Member;
@@ -42,53 +43,58 @@ class Validator {
         //default value for validate is false
         $validate = false;
         switch ($request->type) {
-            case 'register':
-                //$username = trim(htmlspecialchars($request->username,'ENT_QUOTES','UTF-8'));        
-                $validate = $this->register($request);
-                break;
-            
-            default:
-                return $validate;
+            case 'register':      
+                return $this->register($request);
                 break;
         }
     }
 
     private function register(Request $request)
     {
-        if($request->persisted_register == 'yes')
+        if(property_exists($request,'persisted_register'))
         {
-            if($this->validCSFR()&&
+            if(/*$this->validCSFR() &&*/
                !$this->__empty($request->email) &&
                !$this->__empty($request->password) &&
                !$this->__empty($request->password_again) &&
-               !$this->__empty($request->username))
-            {
-                //Check for unique username and email
-                if(!$this->member->isUnique($request->username,$request->email))
-                    $this->message->style('danger')->add('UniqueMember','');
+               !$this->__empty($request->username) &&
+               $request->persisted_register === 'yes')
+               {
+                if (!$this->member->isUnique($request->username, $request->email)) {
+                    $this->message->style('danger')->add('UniqueMember', 'Uživatelské jméno nebo email se již používá');
                     return false;
-                if(strlen($request->username < 4) || strlen($request->username > 35))
-                    $this->message->style('danger')->add('ShortUsername','');
+                }
+                if (strlen($request->username) < 4 || strlen($request->username) > 35) {
+                    $this->message->style('danger')->add('ShortUsername', 'Uživatelské jméno musí obsahovat nejméne 4 znaky (ne více jak 35)');
                     return false;
-                if(!ctype_alnum($request->username))
-                    $this->message->style('danger')->add('NumerInUsername',''); 
+                }
+                if (!ctype_alnum($request->username)) {
+                    $this->message->style('danger')->add('NumerInUsername', 'Uživatelské jméno musí obsahovat číslici');
                     return false;
-                if(mb_strlen($request->password) < 6)
-                    $this->message->style('danger')->add('ShortPassword',''); 
+                }
+                if (strlen($request->password) < 6) {
+                    $this->message->style('danger')->add('Password','Heslo je příliž krátké min délka je 6 znaků');
                     return false;
-                if($request->password === $request->password_again)
-                    $this->message->style('danger')->add('ShortPassword',''); 
+                }
+                if($request->password !== $request->password_again){
+                    $this->message->style('danger')->add('PasswordAgain', 'Hesla se neschodují');
                     return false;
-                if(!filter_var($request->email,FILTER_VALIDATE_EMAIL))
-                    $this->message->style('danger')->add('ShortPassword',''); 
+                }
+                if(!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$%^&]).*$/',$request->password))
+                {
+                    $this->message->style('danger')->add('PasswordSpecChars', 'Heslo musí obsahovat minimálně jeden malý,velký a speciální znak');
                     return false;
-                //if everythink is okey return true
-                return true;    
+                }
+                if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                    $this->message->style('danger')->add('Email', 'Nesprávný email');
+                    return false;
+                }
+                return true;   
             }
-            $this->message->style('danger')->add('fields','');
+            $this->message->style('danger')->add('field','Všecha pole musí být vyplněna');
             return false; 
         }
-            $this->message->style('danger')->add('presisted','');
+            $this->message->style('danger')->add('presisted','Bez souhlasu s VOP & Terms nelze dále pokračovat');
             return false;  
     }
 

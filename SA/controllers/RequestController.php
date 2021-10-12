@@ -4,6 +4,7 @@ namespace Repse\Sa\controllers;
 
 use Repse\Sa\tool\Mailer;
 use Repse\Sa\http\Request;
+use Repse\Sa\support\Sanitizer;
 use Repse\Sa\support\Validator;
 use Repse\Sa\databese\user\Member;
 
@@ -14,14 +15,15 @@ class RequestController{
     public function submitRegister(Request $request)
     {
         // Validation doesnt clear data
-        $validtRegister = $this->validator->validate($request);
+        $validRegister = $this->validator->validate($request);
         $sanitazedRequest = $this->sanitizer->purify($request);
-        if(!$validtRegister || in_array('',$sanitazedRequest,true))
+        
+        if(!$validRegister  || in_array('',$sanitazedRequest,true))
         {
             @$_SESSION = ['old_username'=>$request->username,'old_email'=>$request->email];
             header("Location: /register");
-            die;
         }
+     
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
         $values = [
