@@ -10,15 +10,15 @@ class Sanitizer{
 
     public function __construct(protected HTMLPurifier $purifier) {}
 
-    public function purify(Request $request) : array
+    public function purify(Request $request) 
     {
         foreach(get_object_vars($request) as $key => $value)
         {   
             $purifyed = $this->purifier->purify($value);
             $purify[$key] = $purifyed;
             $this->{$key} = $purifyed;   
-        }
             return $purify; 
+        }
     }
 
 

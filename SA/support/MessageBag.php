@@ -10,7 +10,7 @@ class MessageBag
     protected array $messages = [];
     protected string $format = ':message';
     //success,info,warning,danger,primary,secondary,dark
-    protected string $style = '';
+    protected string $style = 'primary';
 
     /**
      * Create a new message bag instance.
@@ -232,12 +232,8 @@ class MessageBag
         return $this;
     }
 
-    /**
-     * Get the default message format.
-     *
-     * @return string
-     */
-    public function getFormat()
+  
+    public function getFormat(): ?string
     {
         return $this->format;
     }
@@ -254,82 +250,49 @@ class MessageBag
         return $this;
     }
 
-    /**
-     * Determine if the message bag has any messages.
-     *
-     * @return bool
-     */
-    public function isEmpty()
+ 
+    public function isEmpty(): ?bool
     {
         return ! $this->any();
     }
 
-    /**
-     * Determine if the message bag has any messages.
-     *
-     * @return bool
-     */
-    public function isNotEmpty()
+  
+    public function isNotEmpty(): ?bool
     {
         return $this->any();
     }
 
-    /**
-     * Determine if the message bag has any messages.
-     *
-     * @return bool
-     */
-    public function any()
+  
+    public function any(): ?bool
     {
         return $this->count() > 0;
     }
 
-    /**
-     * Get the number of messages in the container.
-     *
-     * @return int
-     */
-    public function count()
+   
+    public function count(): ?int
     {
         return count($this->messages, COUNT_RECURSIVE) - count($this->messages);
     }
 
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray()
+ 
+    public function toArray(): ?array
     {
         return $this->getMessages();
     }
 
-    /**
-     * Convert the object into something JSON serializable.
-     *
-     * @return array
-     */
-    public function jsonSerialize()
+ 
+    public function jsonSerialize(): ?array
     {
         return $this->toArray();
     }
 
-    /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int  $options
-     * @return string
-     */
-    public function toJson($options = 0)
+ 
+    public function toJson($options = 0): ?string
     {
         return json_encode($this->jsonSerialize(), $options);
     }
 
-    /**
-     * Convert the message bag to its string representation.
-     *
-     * @return string
-     */
+    
     public function __toString()
     {
         return $this->toJson();
@@ -340,8 +303,18 @@ class MessageBag
         $this->style = $style;
         return $this;
     }
+
+  
     public function display()
     {
+        $args = func_get_args();
+        if (!empty($args)) {
+            foreach ($args[0] as $key => $value)
+            {
+                $message = $value;
+                return include_once(dirname(__DIR__,2).'/app/message.php');
+            }
+        }
         foreach ($this->all() as $key => $message) 
             return include_once(dirname(__DIR__,2).'/app/message.php');
     }

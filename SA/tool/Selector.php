@@ -5,14 +5,14 @@ namespace Repse\Sa\tool;
 class Selector
 {
     protected array $url;
-    protected null|array $queryArray = null;
-    public null|string $viewName = null;
-    public null|string $article = null;
-    public null|string $page = null;
-    public null|string $fristQueryValue = null;
-    public null|string $secondQueryValue = null;
-    public null|string $title = null;
-    protected array $allowedViews = ['index','','show','update','create','delete','member','404'];
+    protected ?array $queryArray = null;
+    public ?string $viewName = null;
+    public ?string $article = null;
+    public ?string $page = null;
+    public ?string $fristQueryValue = null;
+    public ?string $secondQueryValue = null;
+    public ?string $title = null;
+    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','public','requestHandler'];
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class Selector
         $this->secondQueryAction = isset($this->queryArray[1]) ? filter_input(INPUT_GET, trim(str_replace('&', '', strpbrk($this->queryArray[1], '&')))) : $this->secondQueryValue;
     }
 
-    public function viewName() :void
+    public function viewName(): void
     {
         if (in_array($this->url[1], $this->allowedViews)) {
             switch ($this->url[1]) {
@@ -33,6 +33,8 @@ class Selector
                     $this->viewName = 'index';
                     $this->title = 'SA | index';
                     break;
+                case 'public':    
+                    $this->viewName = null;
                 case $this->url[1]:
                     $this->viewName = $this->url[1];
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
