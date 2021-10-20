@@ -39,17 +39,14 @@
 </head>
 <body>
 @if ($message->isNotEmpty())
-@php
 
-var_dump($message->display());
-
-@endphp
-         
-@elseif(isset($_SESSION['message']))
-    
 {!! $message->display() !!}
+ 
+@elseif(isset($_SESSION['message']))
+
+{!! $message->display($_SESSION['message'],$_SESSION['style']) !!}
     
 @endif        
 @component($selector->viewName)
 @endcomponent
-@include('incl.footer')
+@include('incl.footer',['selector'=>$selector])

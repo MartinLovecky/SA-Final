@@ -32,37 +32,39 @@ class Validator
         }
     }
 
-    private function emptyFields(array $fields) : bool
-    {
-        foreach ($fields as $filed => $value) {
-            if (empty($value)) {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    private function __empty($property)
-    {
-        return empty(($property));
-    }
-
     public function validateRegister(Request $request)
     {
         if($this->propertiesExist($request) && $request->persistent_register === 'yes' && $this->validCSFR($request->_token))
         {
-            if (!$this->__empty($request->username) &&
-                !$this->__empty($request->email) &&
-                !$this->__empty($request->password) && 
-                !$this->__empty($request->password_again)
-                ) {
+            if (!empty($request->username) &&
+                !empty($request->email) &&
+                !empty($request->password) && 
+                !empty($request->password_again)) {
                 if (!$this->member->isUnique($request->username,$request->email)) {
                     $this->message->add(md5('Username'),'Jméno nebo email se již používá');
                 }
+                if(strlen($request->username) < 4 && strlen($request->username) > 35){
+                    $this->message->add(md5('UsernameLen'),'Uživatelské jméno musí obsahovat nejméně 4 znaky a ne více jak 35');
+                }
+                if (!ctype_alnum($request->username)) {
+                    $this->message->add(md5('UsernameNum'),'Uživatelské jméno musí obsahovat nejméně 1 číslo');
+                }
+                if (strlen($request->password) < 6 || strlen($request->password_again) < 6) {
+                    $this->message->add(md5('PWDLen'),'Příliž krátké heslo. Musí obsahovat nejméně 6 znaků');
+                }
+                if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$%^&]).*$/',$request->password)) {
+                    $this->message->add(md5('PWDSpec'),'Heslo musí obasahovat nejméně jedno malé a velké písmeno a specialní znak');
+                }
+                if ($request->password === $request->password_again) {
+                    $this->message->add(md5('PWDSpec'),'Heslo se neschoduje se neschoduje s heslem znovu');
+                }
+                if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+                    $this->message->add(md5('PWDSpec'),'Neplatný formát e-mailu');
+                }
             }
-            $this->message->add(md5('Fail'),'Pole není vyplneno');
+            $this->message->add(md5('Fail'),'Všechna pole musí být vyplneněna');
         }
-        $this->message->add(md5('Persistent'),'Pro registraci musíte souhlasit Smluvními podmínkami a Ochranou soukromí');
+        $this->message->add(md5('Persistent'),'Pro úspěšnou registraci musíte souhlasit se smluvními podmínkami a ochranou soukromí');
         
     }
 }

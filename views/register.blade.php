@@ -25,7 +25,3 @@
 @else
 {{ \header('Location: http://sadventure.com/member/'.$member->username.'')}}
 @endif
-
-<?php
-	dd($_SESSION);
-?>

@@ -311,8 +311,11 @@ class MessageBag
         if (!empty($args)) {
             foreach ($args[0] as $key => $value)
             {
-                $message = $value;
-                return include_once(dirname(__DIR__,2).'/app/message.php');
+                $this->style = $args[1];
+        
+                foreach ($value as $message){
+                    return include_once(dirname(__DIR__,2).'/app/message.php');
+                }
             }
         }
         foreach ($this->all() as $key => $message) 

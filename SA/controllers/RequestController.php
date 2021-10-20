@@ -30,8 +30,8 @@ class RequestController{
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email,'message'=>$this->message->getMessages()];
             
         }
-            @$_SESSION = ['something_is_wierd' => 'xd'];
-            header("Location: /register"); die;
+    
+            
         /*
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
