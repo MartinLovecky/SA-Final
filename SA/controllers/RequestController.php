@@ -4,7 +4,6 @@ namespace Repse\Sa\controllers;
 
 use Repse\Sa\tool\Mailer;
 use Repse\Sa\http\Request;
-use eftec\bladeone\BladeOne;
 use Repse\Sa\support\Sanitizer;
 use Repse\Sa\support\Validator;
 use Repse\Sa\support\MessageBag;
@@ -18,28 +17,26 @@ class RequestController{
         protected Validator $validator,
         protected Sanitizer $sanitizer,
         protected MessageBag $message,
-        //protected BladeOne $blade,
         ) {}
-
     
     public function submitRegister(Request $request)
     {
+        // Validator set messgaes if requets post is not valid
         $this->validator->validateRegister($request);
-        if ($this->message->isNotEmpty() || in_array('',$this->sanitizer->purify($request))) {
+        $sanitaze = $this->sanitizer->purify($request);
+        if ($this->message->isNotEmpty() || in_array('',$sanitaze)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email,'message'=>$this->message->getMessages()];
-            
+            return false; 
         }
-    
-            
-        /*
+        //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
         $values = [
             'username'=>$this->sanitizer->username,
             'password'=>$hashPassword,
             'email'=>$this->sanitizer->email,
-            'activate'=>$activate,
+            'active'=>$activate,
             'permission'=>'user',
             'avatar'=>'empty_profile.png',
             'bookmarkCount'=>0,
@@ -53,8 +50,8 @@ class RequestController{
         $info = ['subject'=>'Potvrzení registrace','to'=>$this->sanitizer->email];
         if($this->email->sender($body,$info))
         {
-            header("Location: /login?action=joined");
-        }*/
+            header("Location: /login?action=joined"); die;
+        }
     }
 
     public function submitLogin(Request $request)

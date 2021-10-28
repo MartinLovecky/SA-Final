@@ -15,7 +15,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "vlucas/phpdotenv": "5.4.x-dev",
+        "vlucas/phpdotenv": "5.3.x-dev",
         "eftec/bladeone": "dev-master",
         "symfony/var-dumper": "6.0.x-dev",
         "envms/fluentpdo": "^2.2",

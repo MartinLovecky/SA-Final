@@ -1,3 +1,5 @@
+@extends('incl.app')
+@section($selector->viewName)    
 <header class="index_header">
     <div class="container-fluid d-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
         <div class="row index_main">
@@ -24,7 +26,7 @@
             <div class="col-md-6 col-xl-7 offset-xl-0 index_list">
                 <h4>Všechny příběhy</h4>
                 <ul class="index_list-style">
-                   
+                    
                 </ul>
                 <h4>Vysvětlivky</h4>
                 <ul class="index_list-style">
@@ -38,9 +40,10 @@
                 <p style="color: #eef4f7;">Vítám Vás na stránkách StarAdventure,</p>
                 <p style="color: #eef4f7;">Pro prohlížení webu je nutné se registrovat a veškerý obsah je chráněn autorským zákonem děkuji za pochopení.</p>
                 <p style="color: #eef4f7;">Na webu StarAdventure naleznete příběh odehrávající se v roce 2030, kdy hlavní hrdina&nbsp;<a href="/show/isama/1">Isama</a>&nbsp;zjistí, že žije v mnohem záhadnějším a úžasnějším světě o kterém donedávna neměl tušení že existuje.</p>
-               
+                
             </div>
         </div>
     </div>
 </div>
+@endsection
 

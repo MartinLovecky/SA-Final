@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'ed1f38a57d40592739fc55b2ffb8e0da2f07aff0',
         'name' => 'repse/sa',
         'dev' => true,
     ),
@@ -18,7 +18,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '4ded13d0af3c0960a24c056bb32a1050f17c9820',
+            'reference' => 'd3e1efa1c6f776aa87fe47164d77e7ea67fc196f',
             'dev_requirement' => false,
         ),
         'envms/fluentpdo' => array(
@@ -47,7 +47,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../graham-campbell/result-type',
             'aliases' => array(),
-            'reference' => '03d70a172fd370ce06034e97a5f2cd6d558435d1',
+            'reference' => '296c015dc30ec4322168c5ad3ee5cc11dae827ac',
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
@@ -58,7 +58,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'be98d62e365a657a175c9fcf49f3914c6d8ec0ad',
+            'reference' => '72c1e32d5ecba8481787567085759aed6ac42747',
             'dev_requirement' => false,
         ),
         'phpoption/phpoption' => array(
@@ -90,12 +90,14 @@
             ),
         ),
         'psr/container' => array(
-            'pretty_version' => '1.1.x-dev',
-            'version' => '1.1.9999999.9999999-dev',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/container',
-            'aliases' => array(),
-            'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
+            'aliases' => array(
+                0 => '2.0.x-dev',
+            ),
+            'reference' => '2ae37329ee82f91efadc282cc2d527fd6065a5ef',
             'dev_requirement' => false,
         ),
         'psr/log' => array(
@@ -116,12 +118,12 @@
             ),
         ),
         'repse/sa' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'ed1f38a57d40592739fc55b2ffb8e0da2f07aff0',
             'dev_requirement' => false,
         ),
         'symfony/cache' => array(
@@ -130,7 +132,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/cache',
             'aliases' => array(),
-            'reference' => 'f84a656924764cd2402493646a9c46f8b69ee08f',
+            'reference' => 'ae801a8429df8adf61de41b72378515b2dc6228a',
             'dev_requirement' => false,
         ),
         'symfony/cache-contracts' => array(
@@ -139,9 +141,9 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/cache-contracts',
             'aliases' => array(
-                0 => '2.5.x-dev',
+                0 => '3.0.x-dev',
             ),
-            'reference' => '93feaaf6bbea182f3662084cb9c88e1d3dc5ebc3',
+            'reference' => '2f7463f156cf9c665d9317e21a809c3bbff5754e',
             'dev_requirement' => false,
         ),
         'symfony/cache-implementation' => array(
@@ -158,7 +160,7 @@
             'aliases' => array(
                 0 => '1.23.x-dev',
             ),
-            'reference' => '46cd95797e9df938fdd2b03693b5fca5e64b01ce',
+            'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-mbstring' => array(
@@ -169,7 +171,7 @@
             'aliases' => array(
                 0 => '1.23.x-dev',
             ),
-            'reference' => '9174a3d80210dca8daa7f31fec659150bbeabfc6',
+            'reference' => '11b9acb5e8619aef6455735debf77dde8825795c',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-php80' => array(
@@ -180,7 +182,7 @@
             'aliases' => array(
                 0 => '1.23.x-dev',
             ),
-            'reference' => '1100343ed1a92e3a38f9ae122fc0eb21602547be',
+            'reference' => '57b712b08eddb97c762a8caa32c84e037892d2e9',
             'dev_requirement' => false,
         ),
         'symfony/service-contracts' => array(
@@ -189,9 +191,9 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/service-contracts',
             'aliases' => array(
-                0 => '2.5.x-dev',
+                0 => '3.0.x-dev',
             ),
-            'reference' => '8c29a2aeea95d18ce58bd2ee60725089cec39ebc',
+            'reference' => '5c8f40afd1d6bc1a569a12a0d5a82afca708261e',
             'dev_requirement' => false,
         ),
         'symfony/var-dumper' => array(
@@ -200,7 +202,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/var-dumper',
             'aliases' => array(),
-            'reference' => '8eea4e86e7c050924f406e740d8e04eb2eb69b9d',
+            'reference' => 'c3a2032fa49a0a8266fd34ea8276d0a4c057df80',
             'dev_requirement' => false,
         ),
         'symfony/var-exporter' => array(
@@ -218,9 +220,9 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../vlucas/phpdotenv',
             'aliases' => array(
-                0 => '5.4.x-dev',
+                0 => '5.3.x-dev',
             ),
-            'reference' => '3349d8cd26a23c42b1adecda4b5a687637b21242',
+            'reference' => 'accaddf133651d4b5cf81a119f25296736ffc850',
             'dev_requirement' => false,
         ),
     ),

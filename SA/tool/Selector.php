@@ -12,7 +12,7 @@ class Selector
     public ?string $fristQueryValue = null;
     public ?string $secondQueryValue = null;
     public ?string $title = null;
-    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','public','requestHandler'];
+    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler'];
 
     public function __construct()
     {
@@ -33,14 +33,13 @@ class Selector
                     $this->viewName = 'index';
                     $this->title = 'SA | index';
                     break;
-                case 'public':    
-                    $this->viewName = null;
                 case $this->url[1]:
                     $this->viewName = $this->url[1];
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
                     break;
             }
-        } else {
+        } 
+        else{
             # If page is not allowed 404
             $this->viewName = '404';
             $this->title = 'SA | 404';

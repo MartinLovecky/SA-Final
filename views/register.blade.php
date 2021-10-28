@@ -1,3 +1,6 @@
+@extends('incl.app',['message'=>$message,'selector'=>$selector])
+
+@section($selector->viewName)
 @if (!$member->logged)
 <section class="login-dark">
 	{{-- you can set / add  a lot more options see inside \Sa\tool\html\Forms --}}
@@ -15,9 +18,9 @@
 	    <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Register</button></div>
         <a href="/login" class="forgot">Máte již účet?</a>
         <hr/>
-	<div class="g-recaptcha" id='recaptcha' data-sitekey="6LdKkYEUAAAAAE5Ykg8LY5gOPNXzgTyIG3FVuCqM" data-badge="inline" data-size="invisible" data-callback="onSubmit"></div>
-	@csrf
-	<input type="hidden" name="type" value='register'>
+		<div class="g-recaptcha" id='recaptcha' data-sitekey="6LdKkYEUAAAAAE5Ykg8LY5gOPNXzgTyIG3FVuCqM" data-badge="inline" data-size="invisible" data-callback="onSubmit"></div>
+		@csrf
+		<input type="hidden" name="type" value='register'>
     </form>
 	<script>onload();</script>
 </section>
@@ -25,3 +28,5 @@
 @else
 {{ \header('Location: http://sadventure.com/member/'.$member->username.'')}}
 @endif
+
+@endsection
