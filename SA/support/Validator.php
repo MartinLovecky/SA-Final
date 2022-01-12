@@ -16,12 +16,12 @@ class Validator
     private function validCSFR(string $token)
     {
       $decoded_token = explode('|',base64_decode($token));
-      $decoded_session = explode('|',base64_decode($_SESSION['_token']));
+      $decoded_session = explode('|',base64_decode(strrev($_SESSION['_token'])));
       if (($decoded_token[1] === $decoded_session[1] && $decoded_token[1] === $_SERVER['REMOTE_ADDR']) && 
           ($decoded_token[2] === $decoded_session[2] && $decoded_token[2] === $_SERVER['SERVER_NAME'])) {
             return true;
       }
-
+        return false;
     }
 
     private function propertiesExist(Request $request)
@@ -38,10 +38,11 @@ class Validator
     {
         if($this->propertiesExist($request) && $request->persistent_register == 'yes' && $this->validCSFR($request->_token))
         {
-            if (!empty($request->username) &&
+             if(!empty($request->username) &&
                 !empty($request->email) &&
                 !empty($request->password) && 
-                !empty($request->password_again)) {
+                !empty($request->password_again))
+                {
                 if (!$this->member->isUnique($request->username,$request->email)) {
                     $this->message->add(md5('Username'),'Jméno nebo email se již používá');
                 }
@@ -54,8 +55,8 @@ class Validator
                 if (strlen($request->password) < 6 || strlen($request->password_again) < 6) {
                     $this->message->add(md5('PWDLen'),'Příliž krátké heslo. Musí obsahovat nejméně 6 znaků');
                 }
-                if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$%^&]).*$/',$request->password)) {
-                    $this->message->add(md5('PWDSpec'),'Heslo musí obasahovat nejméně jedno malé a velké písmeno a specialní znak');
+                if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&]).*$/',$request->password)) {
+                    $this->message->add(md5('PWDSpec'),'Heslo musí obasahovat nejméně jedno malé a velké písmeno a jeden specialní znak(!@$%^&)');
                 }
                 if ($request->password !== $request->password_again) {
                     $this->message->add(md5('PWDSpec'),'Heslo se neschoduje se neschoduje s heslem znovu');

@@ -1500,7 +1500,7 @@ class BladeOne
     {
         if ($this->csrf_token == '') {
             $this->csrf_token = base64_encode(uniqid(rand(),true).'|'.$_SERVER['REMOTE_ADDR'].'|'.$_SERVER['SERVER_NAME'].'|'.bin2hex(uniqid(rand(),true)));
-            @$_SESSION['_token'] = $this->csrf_token;
+            @$_SESSION['_token'] = strrev($this->csrf_token);
             return $this->csrf_token;
         }
         return $this->csrf_token;

@@ -3,23 +3,16 @@
 namespace Repse\Sa\support;
 
 use ArrayAccess;
-use HTMLPurifier;
 use Repse\Sa\http\Request;
 
 class Sanitizer{
 
-    public function __construct(protected HTMLPurifier $purifier) {}
+    public $username;
+    public $email;
 
     public function purify(Request $request) 
     {
-        foreach(get_object_vars($request) as $key => $value)
-        {   
-            $purifyed = $this->purifier->purify($value);
-            $purify[$key] = $purifyed;
-            $this->{$key} = $purifyed;   
-            return $purify; 
-        }
+        $this->username = !empty($request->username) ? htmlspecialchars($request->username) : null;
+        $this->email = !empty($request->email) ? filter_var($request->email, FILTER_SANITIZE_EMAIL) : null;
     }
-
-
 }

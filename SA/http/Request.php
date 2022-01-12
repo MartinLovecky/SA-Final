@@ -4,20 +4,10 @@ namespace Repse\Sa\http;
 
 class Request{
 
-    public function getRequest() //: void
+    public function getRequest() 
     {
-        //REVIEW only for testing delete after 
-        $args = func_get_args();
-        
-        if (!empty($args)) {
-            foreach ($args[0] as $key => $value)
-            {
-                $this->{$key} = $value;
-            }
-        }
         foreach ($_POST as $key =>$value)
             $this->{$key} = $value;
-            
     }
 
     public function getGET() : array

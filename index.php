@@ -40,10 +40,10 @@ $request->getRequest();
 
 
 $form = new Repse\Sa\tool\html\Forms();
-$sanitizer = new Repse\Sa\support\Sanitizer($purifier);
+$sanitizer = new Repse\Sa\support\Sanitizer();
 $member = new Repse\Sa\databese\user\Member($db->con);
 $validator = new Repse\Sa\support\Validator($message,$member);
-$requestController = new Repse\Sa\controllers\RequestController($db->con,$mailer,$validator,$sanitizer,$message);
+$requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$sanitizer,$message);
 $article = new Repse\Sa\databese\story\Article($db->con,$message);
 $articleController = new Repse\Sa\controllers\ArticleController($selector,$article);
 

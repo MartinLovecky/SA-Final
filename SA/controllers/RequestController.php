@@ -23,12 +23,13 @@ class RequestController{
     {
         // Validator set messgaes if requets post is not valid
         $this->validator->validateRegister($request);
-        $sanitaze = $this->sanitizer->purify($request);
-        if ($this->message->isNotEmpty() || in_array('',$sanitaze)) {
+        $this->sanitizer->purify($request);
+        if ($this->message->isNotEmpty()) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email,'message'=>$this->message->getMessages()];
             return false; 
         }
+    
         //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
@@ -42,9 +43,9 @@ class RequestController{
             'bookmarkCount'=>0,
             'visible'=>1
         ];
-        $smtp = $this->db->insertInto('members')->values($values)->execute();
-        $id = $this->db->lastInsertId();
-        $this->db->close();
+        $smtp = $this->db->con->insertInto('members')->values($values)->execute();
+        $id = $this->db->getID($request->username);
+        $this->db->con->close();
         $emailTemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/views/emailTemplate/register.php');
         $body = str_replace(['YourUsername','MemberID','ActivisionHash','URL'],[$this->sanitizer->username,$id,$activate,$_SERVER['DOCUMENT_ROOT']],$emailTemplate);
         $info = ['subject'=>'Potvrzení registrace','to'=>$this->sanitizer->email];
@@ -52,6 +53,7 @@ class RequestController{
         {
             header("Location: /login?action=joined"); die;
         }
+    
     }
 
     public function submitLogin(Request $request)
@@ -63,7 +65,7 @@ class RequestController{
             header("Location: /login");
             die;
         }
-        $memeberData = $this->db->getMemeberData($request->username);
+        $memeberData = $this->db->con->getMemeberData($request->username);
         Member::setSession($memberData);
         header('Location: /member/'.$request->username.'?action=logged');
     }

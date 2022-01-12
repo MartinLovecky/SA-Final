@@ -54,4 +54,11 @@ class DB{
         $this->con->close();
         return $result;
     }
+
+    public function getID($username)
+    {
+        $stmt = $this->con->from('members')->where('username',$username);
+        $result = $stmt->fetch('memberID');
+        return $result;
+    }
 }
