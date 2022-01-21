@@ -29,7 +29,6 @@ class RequestController{
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email,'message'=>$this->message->getMessages()];
             return false; 
         }
-    
         //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
@@ -58,14 +57,17 @@ class RequestController{
 
     public function submitLogin(Request $request)
     {
-        $login = $this->validator->validate($request);
-        if(!$login)
-        {
-            @$_SESSION = [''];
-            header("Location: /login");
-            die;
+        $this->validator->validateLogin($request);
+        if ($this->message->isNotEmpty()) {
+            //Variables that we want display after redirect store to SESSION ... !!! never store password
+            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'message'=>$this->message->getMessages()];
+            return false; 
         }
-        $memeberData = $this->db->con->getMemeberData($request->username);
+        if ($request->remeber == 'yes') {
+            setcookie('remeber',$request->username,time()+(86400 * 7),"/");
+            $update = $this->db->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
+        }
+        $memeberData = $this->db->getMemeberData($request->username);
         Member::setSession($memberData);
         header('Location: /member/'.$request->username.'?action=logged');
     }

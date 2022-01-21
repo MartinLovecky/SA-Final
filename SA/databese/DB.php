@@ -51,7 +51,6 @@ class DB{
     {
         $stmt = $this->con->from('members')->where('username',$username);
         $result = $sttm->fetch();
-        $this->con->close();
         return $result;
     }
 

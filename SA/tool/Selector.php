@@ -12,7 +12,7 @@ class Selector
     public ?string $fristQueryValue = null;
     public ?string $secondQueryValue = null;
     public ?string $title = null;
-    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler'];
+    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler','login'];
 
     public function __construct()
     {
@@ -21,8 +21,8 @@ class Selector
         $this->queryArray = explode('=', $_SERVER['QUERY_STRING']);
         $this->article = isset($this->url[2]) ? $this->url[2] : $this->article;
         $this->page = isset($this->url[3]) ? $this->url[3] : $this->page;
-        $this->fristQueryAction = !empty($this->queryArray[0]) ? filter_input(INPUT_GET, trim($this->queryArray[0])) : $this->fristQueryValue;
-        $this->secondQueryAction = isset($this->queryArray[1]) ? filter_input(INPUT_GET, trim(str_replace('&', '', strpbrk($this->queryArray[1], '&')))) : $this->secondQueryValue;
+        $this->fristQueryValue = !empty($this->queryArray[0]) ? filter_input(INPUT_GET, trim($this->queryArray[0])) : $this->fristQueryValue;
+        $this->secondQueryValue = isset($this->queryArray[1]) ? filter_input(INPUT_GET, trim(str_replace('&', '', strpbrk($this->queryArray[1], '&')))) : $this->secondQueryValue;
     }
 
     public function viewName(): void

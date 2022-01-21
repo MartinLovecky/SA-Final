@@ -11,7 +11,7 @@ class Member{
     protected string $password;
     public ?int $memberID = null;
     public ?string $memberEmail = null;
-    //public ?string $activeMember;
+    public ?string $activeMember = null;
     public string $permission = 'visit';
     public ?string $memberName = null;
     public ?string $memberSurname = null;
@@ -31,7 +31,7 @@ class Member{
         $this->visible = isset($_SESSION['visible']) ? $_SESSION['visible'] : $this->visible;
         $this->username = isset($_SESSION['username']) ? $_SESSION['username'] : $this->username;
         $this->permission = isset($_SESSION['permission']) ? $_SESSION['permission'] : $this->permission;
-        //$this->activeMember = isset($_SESSION['active']) ? $_SESSION['active'] : $this->activeMember;   
+        $this->activeMember = isset($_SESSION['active']) ? $_SESSION['active'] : $this->activeMember;   
         // Personal changeble inside updateMember.blade.php
         $this->memberName = isset($_SESSION['name']) ? $_SESSION['name'] : $this->memberName;
         $this->memberSurname = isset($_SESSION['surname']) ? $_SESSION['surname'] : $this->memberSurname;
@@ -46,6 +46,29 @@ class Member{
     {
         foreach ($result as $key => $value) {
             $_SESSION[$key] = $value;
+        }
+    }
+
+    public function checkRemember()
+    { 
+        if (isset($_COOKIE['remember']) && $this->remember) {
+            $memberdata = $this->db->getMemeberData($_COOKIE['remember']);
+            self::setSession($memberdata);
+            header('Location: /member/'.$this->username.'?action=logged'); 
+        }else {
+
+            $update = $this->db->con->update('members')->set(['remeber'=>'0'])->where('username',$this->username)->execute();
+            return null;
+        }
+    }
+
+    protected function checkActivation()
+    {
+        // If user is active this do nothing 
+        // frist step get all members from db
+        // Display message if active is not YES
+        if($this->logged && $this->activeMember != 'YES'){
+            @$_SESSION = ['message'=> $this->message->add(md5('Active'),' <a href="reactivate?x='.$this->memberID.'&y=ActivasionHash">Poslat email znovu<')];
         }
     }
 

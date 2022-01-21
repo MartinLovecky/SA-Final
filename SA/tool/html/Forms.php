@@ -24,7 +24,7 @@ class Forms {
         return $this;
     }
 
-    public function values(array $values)
+    public function vars(array $values)
     {
         $this->values = !empty($values) ? $values : $this->values;
         return $this;

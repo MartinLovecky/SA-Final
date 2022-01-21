@@ -75,8 +75,13 @@ class Validator
 
     public function validateLogin(Request $request)
     {
-        if ($this->propertiesExist($request)  && $this->validCSFR($request->_token)) {
-        # code   
+        if ($this->propertiesExist($request) && $this->validCSFR($request->_token)) {
+            if(!empty($request->username) && !empty($request->password))
+            {
+                if ($this->member->isUnique($request->username,$request->email)) {
+                    $this->message->add(md5('Username'),'Uživatelské jméno neexistuje');
+                }
+            }
         }
     }
 }

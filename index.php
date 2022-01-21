@@ -33,7 +33,7 @@ $selector->viewName();
 
 $mailer = new Repse\Sa\tool\Mailer();
 $db = new Repse\Sa\databese\DB();
-$message = new Repse\Sa\support\MessageBag();
+$message = new Repse\Sa\support\MessageBag($selector);
 
 $request = new Repse\Sa\http\Request();
 $request->getRequest();
@@ -42,6 +42,7 @@ $request->getRequest();
 $form = new Repse\Sa\tool\html\Forms();
 $sanitizer = new Repse\Sa\support\Sanitizer();
 $member = new Repse\Sa\databese\user\Member($db->con);
+$member->checkRemember();
 $validator = new Repse\Sa\support\Validator($message,$member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$sanitizer,$message);
 $article = new Repse\Sa\databese\story\Article($db->con,$message);

@@ -1,11 +1,11 @@
 @extends('incl.app',['message'=>$message,'selector'=>$selector])
-
 @section($selector->viewName)
 @if (!$member->logged)
 <section class="login-dark">
 	{{-- you can set / add  a lot more options see inside \Sa\tool\html\Forms --}}
-    {!! $form->options(['target'=>'requestHandler'])
-			 ->values(['requestController'=>$requestController,'request'=>$request])
+    {!! 
+		$form->options(['target'=>'requestHandler'])
+			 ->vars(['requestController'=>$requestController,'request'=>$request])
 			 ->run($blade) 
 	!!}
         <h2 class="sr-only">Registrace</h2>
@@ -26,7 +26,7 @@
 </section>
 
 @else
-{{ \header('Location: http://sadventure.com/member/'.$member->username.'')}}
+{{ \header('Location: /member/'.$member->username.'')}}
 @endif
 
 @endsection

@@ -4,6 +4,8 @@ namespace Repse\Sa\support;
 
 use Repse\Sa\support\Arr;
 use Repse\Sa\support\Str;
+use Repse\Sa\tool\Selector;
+use Repse\Sa\support\QueryMessages;
 
 class MessageBag
 {
@@ -18,11 +20,11 @@ class MessageBag
      * @param  array  $messages
      * @return void
      */
-    public function __construct(array $messages = [])
+    public function __construct(private Selector $selector)
     {
+        $messages = [];
         foreach ($messages as $key => $value) {
-            $this->messages[$key] = $value;
-                    
+            $this->messages[$key] = $value;   
         }
     }
 
@@ -259,9 +261,18 @@ class MessageBag
   
     public function isNotEmpty(): ?bool
     {
-        return $this->any();
+        return $this->any() || $this->checkGETmessage();
     }
-
+    
+    public function checkGETmessage(): ?bool
+    { 
+        if(isset($this->selector->fristQueryAction)){
+            $querymsg = new QueryMessages();
+            $querymsg->setActionMessage($this->selector->fristQueryAction);
+            return true;
+        }
+        return false;
+    }
   
     public function any(): ?bool
     {
