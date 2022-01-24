@@ -16,7 +16,7 @@ class Forms {
 
     public function options(array $options)
     {
-        $this->class = isset($options['class']) ? $options['options'] : $this->class;
+        $this->class = isset($options['class']) ? $options['class'] : $this->class;
         $this->method = isset($options['method']) ? $options['method'] : $this->method;
         $this->target = isset($options['target']) ? $options['target'] : $this->target;
         $this->autocomplete = isset($options['autocomplete']) ? $options['autocomplete'] : $this->autocomplete;

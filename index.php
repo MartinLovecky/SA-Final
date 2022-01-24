@@ -18,16 +18,6 @@ $blade = new BladeOne(__DIR__ . '/views', __DIR__ . '/cache',BladeOne::MODE_AUTO
 $blade->setBaseUrl('/public/');
 $blade->getCsrfToken();
 
-/** $blade->setAuth('johndoe','admin');
- * @auth
- * The user is authenticated...
-*@endauth
-*
-*@guest
-*   The user is not authenticated...
-*@endguest
- */
-
 $selector = new Repse\Sa\tool\Selector();
 $selector->viewName();
 
@@ -42,12 +32,12 @@ $request->getRequest();
 $form = new Repse\Sa\tool\html\Forms();
 $sanitizer = new Repse\Sa\support\Sanitizer();
 $member = new Repse\Sa\databese\user\Member($db->con);
-$member->checkRemember();
 $validator = new Repse\Sa\support\Validator($message,$member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$sanitizer,$message);
 $article = new Repse\Sa\databese\story\Article($db->con,$message);
 $articleController = new Repse\Sa\controllers\ArticleController($selector,$article);
 
+$member->checkRemember();
 echo $blade->run($selector->viewName,include(__DIR__ . '/app/viewVariables.php'));
 
 

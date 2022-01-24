@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> 
+<html lang="cs">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="Description" content="Author: Sensei, Příběh, SCI-FI">
     <title>{{ $selector->title }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Adventure|Sci-fi|Fantasy story where the protagonist discovers that he lives in a much more mysterious and amazing world ">
+    <link rel="icon" type="image/png" sizes="256x256" href="assets/img/android-chrome-256x256.png">
+    <link rel="stylesheet" href="http://sadventure.xf.cz/public/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aldrich" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie" />
     <link rel="stylesheet" type="text/css" href="http://sadventure.xf.cz/public/css/Login-Form-Dark.css">

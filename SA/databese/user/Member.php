@@ -56,8 +56,6 @@ class Member{
             self::setSession($memberdata);
             header('Location: /member/'.$this->username.'?action=logged'); 
         }else {
-
-            $update = $this->db->con->update('members')->set(['remeber'=>'0'])->where('username',$this->username)->execute();
             return null;
         }
     }

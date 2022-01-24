@@ -26,7 +26,17 @@
             <div class="col-md-6 col-xl-7 offset-xl-0 index_list">
                 <h4>Všechny příběhy</h4>
                 <ul class="index_list-style">
-                    
+                    <li><a href="#">Allwin</a>&nbsp;→&nbsp;Vysvětluje počátek světa, ve kterém se příběh odehrává.<br></li>
+                    <li><a href="#">Samuel</a>&nbsp;→&nbsp;Začátek hlavního příběhu.<br></li>
+                    <li><a href="#">Isama</a>&nbsp;→&nbsp;Navazuje na příběh Samuela.<br></li>
+                    <li><a href="#">Nový Horizont</a>&nbsp;→&nbsp;Pokračování Isamova příběhu.<br></li>
+                    <li><a href="#">Nový Svět</a>&nbsp;→&nbsp;Závěrečná část Isamova příběhu<br></li>
+                    <li><a href="#">Angel &amp; Eklips</a>&nbsp;→&nbsp;Příběh má spojitost s příběhem Allwina.<br></li>
+                    <li><a href="#">Mr.Y</a>&nbsp;→&nbsp;Vysvětluje původ Mr.?<br></li>
+                    <li><a href="#">White Star</a>&nbsp;→&nbsp;Příběh popisuje minulost White Stara.<br></li>
+                    <li><a href="#">Lord Terror</a>&nbsp;→&nbsp;Důležitá postava v Novém světě.<br></li>
+                    <li><a href="#">Hyperion</a>&nbsp;→&nbsp;Historie Nového světa.<br></li>
+                    <li><a href="#">Démoni</a>&nbsp;→&nbsp;Příběh vysvětlující rasu Démonů.<br></li>
                 </ul>
                 <h4>Vysvětlivky</h4>
                 <ul class="index_list-style">
@@ -40,7 +50,12 @@
                 <p style="color: #eef4f7;">Vítám Vás na stránkách StarAdventure,</p>
                 <p style="color: #eef4f7;">Pro prohlížení webu je nutné se registrovat a veškerý obsah je chráněn autorským zákonem děkuji za pochopení.</p>
                 <p style="color: #eef4f7;">Na webu StarAdventure naleznete příběh odehrávající se v roce 2030, kdy hlavní hrdina&nbsp;<a href="/show/isama/1">Isama</a>&nbsp;zjistí, že žije v mnohem záhadnějším a úžasnějším světě o kterém donedávna neměl tušení že existuje.</p>
-                
+                @if (!$member->logged)
+                <div class="d-flex d-xl-flex flex-column align-items-xl-end index-log-reg">
+                    <a class="btn btn-primary btn-lg d-block btn-default w-100" role="button" href="/login">Přihlášení</a>
+                    <a class="btn btn-primary btn-lg d-block btn-default w-100" role="button" href="/register">Registrace</a>
+                </div>
+                @endif 
             </div>
         </div>
     </div>
