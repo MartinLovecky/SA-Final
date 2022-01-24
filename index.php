@@ -20,6 +20,8 @@ $blade->setBaseUrl('/public/');
 $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();
+//!NOTE: allowedViews must have '' inside array otherwise index will not work if you dont like it here you can write them to the file or to the class
+$selector->allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler','login','logout'];
 $selector->viewName();
 
 $mailer = new Repse\Sa\tool\Mailer();
