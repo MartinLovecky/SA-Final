@@ -6,6 +6,7 @@ require(__DIR__ . '/vendor/autoload.php');
 
 session_set_cookie_params(0);
 session_start();
+ob_start();
 
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
@@ -28,7 +29,6 @@ $message = new Repse\Sa\support\MessageBag($selector);
 $request = new Repse\Sa\http\Request();
 $request->getRequest();
 
-
 $form = new Repse\Sa\tool\html\Forms();
 $sanitizer = new Repse\Sa\support\Sanitizer();
 $member = new Repse\Sa\databese\user\Member($db->con);
@@ -38,7 +38,5 @@ $article = new Repse\Sa\databese\story\Article($db->con,$message);
 $articleController = new Repse\Sa\controllers\ArticleController($selector,$article);
 
 $member->checkRemember();
+
 echo $blade->run($selector->viewName,include(__DIR__ . '/app/viewVariables.php'));
-
-
-

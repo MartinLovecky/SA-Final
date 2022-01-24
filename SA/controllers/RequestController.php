@@ -63,11 +63,11 @@ class RequestController{
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'message'=>$this->message->getMessages()];
             return false; 
         }
-        if ($request->remeber == 'yes') {
+        if (isset($request->remeber) && $request->remeber == 'yes') {
             setcookie('remeber',$request->username,time()+(86400 * 7),"/");
             $update = $this->db->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
         }
-        $memeberData = $this->db->getMemeberData($request->username);
+        $memberData = $this->db->getMemeberData($request->username);
         Member::setSession($memberData);
         header('Location: /member/'.$request->username.'?action=logged');
     }

@@ -50,7 +50,7 @@ class DB{
     public function getMemeberData($username)
     {
         $stmt = $this->con->from('members')->where('username',$username);
-        $result = $sttm->fetch();
+        $result = $stmt->fetch();
         return $result;
     }
 

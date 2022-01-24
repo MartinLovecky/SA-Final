@@ -85,6 +85,15 @@ class Member{
         return true;
     }
 
+    public function exists($username)
+    {
+        $stmt = $this->db->from('members')->select('username')->where('username',$username)->execute();
+        if(!$stmt){
+            return false;
+        }
+        return true;
+    }
+
     public function logout()
     {
         session_destroy();

@@ -12,7 +12,7 @@ class Selector
     public ?string $fristQueryValue = null;
     public ?string $secondQueryValue = null;
     public ?string $title = null;
-    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler','login'];
+    protected array $allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler','login','logout'];
 
     public function __construct()
     {

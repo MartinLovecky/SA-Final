@@ -78,7 +78,7 @@ class Validator
         if ($this->propertiesExist($request) && $this->validCSFR($request->_token)) {
             if(!empty($request->username) && !empty($request->password))
             {
-                if ($this->member->isUnique($request->username,$request->email)) {
+                if (!$this->member->exists($request->username)) {
                     $this->message->add(md5('Username'),'Uživatelské jméno neexistuje');
                 }
             }
