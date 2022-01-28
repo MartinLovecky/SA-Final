@@ -25,7 +25,7 @@
     </div>
 </footer>
 @endif
-<script src="http://sadventure.xf.cz/public/js/jquery.min.js"></script>
-<script src="http://sadventure.xf.cz/public/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
