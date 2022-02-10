@@ -8,22 +8,24 @@ use Repse\Sa\databese\story\Article;
 
 class ArticleController{
 
-    public function __construct(protected Selector $selector,protected Article $article){}
+    public function __construct(protected Selector $selector,protected Article $article,protected Cache $cache){}
+
+    public function inputArticleToCache()
+    {
+        if(isset($this->selector->article))
+        {
+            $parsedArticle = $this->cache->setCache($this->selector->article,$this->article->getArticle($this->selector->article,$this->selector->page));
+            return $parsedArticle;
+        }
+    }
 
     public function getArticleFromCache()
     {   
-        $cache = new Cache();
 
-        if(isset($this->selector->article))
-        {
-            // frist element is key name  
-            $parsedArticle = $cache->setCache($this->selector->article,$this->article->getArticle($this->selector->article,$this->selector->page));
-            return $parsedArticle;
-        }
         $args = func_get_args();
         if(!empty($args))
         {
-            $parsedArticle =  $cache->setCache($args[0],$this->article->getArticle($args[0],$args[1]));
+            $parsedArticle = $this->cache->setCache($args[0],$this->article->getArticle($args[0],$args[1]));
             return $parsedArticle;
         }
 

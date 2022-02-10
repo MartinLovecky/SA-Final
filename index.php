@@ -10,7 +10,7 @@ ob_start();
 
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
-
+//NOTE: You need create your own .env in root directory 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required(['DB_NAME','DB_USER','DB_HOST','DB_PASS']);
@@ -20,11 +20,14 @@ $blade->setBaseUrl('/public/');
 $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();
-//!NOTE: allowedViews must have '' inside array otherwise index will not work if you dont like it here you can write them to the file or to the class
-$selector->allowedViews = ['index','','show','update','create','delete','member','404','register','requestHandler','login','logout'];
+//NOTE: allowedViews must have '' inside array otherwise index will not work.
+//NOTE: Page must exist inside views  
+$selector->allowedViews = require(__DIR__ . '/app/allowedViews.php');
 $selector->viewName();
 
 $mailer = new Repse\Sa\tool\Mailer();
+//NOTE: $db->con returns fluent PDO (https://www.sitepoint.com/getting-started-fluentpdo/) 
+//NOTE: IF you need use Build in function from PDO or your own functions from DB in other class use only $db
 $db = new Repse\Sa\databese\DB();
 $message = new Repse\Sa\support\MessageBag($selector);
 
@@ -32,12 +35,15 @@ $request = new Repse\Sa\http\Request();
 $request->getRequest();
 
 $form = new Repse\Sa\tool\html\Forms();
-$sanitizer = new Repse\Sa\support\Sanitizer();
-$member = new Repse\Sa\databese\user\Member($db->con);
+$member = new Repse\Sa\databese\user\Member($db,$message);
 $validator = new Repse\Sa\support\Validator($message,$member);
-$requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$sanitizer,$message);
+$requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
+//FIXME: Testing Cache system for articles (curently at dev state) 
+//FIXME: Articles currently doesnt work due testing cache system (should be done in 2days)
+$FilesystemAdapter = new Symfony\Component\Cache\Adapter\FilesystemAdapter;
+$cache = new Repse\Sa\support\Cache($FilesystemAdapter);
 $article = new Repse\Sa\databese\story\Article($db->con,$message);
-$articleController = new Repse\Sa\controllers\ArticleController($selector,$article);
+$articleController = new Repse\Sa\controllers\ArticleController($selector,$article,$cache);
 
 $member->checkRemember();
 

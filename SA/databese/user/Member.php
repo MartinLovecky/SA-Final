@@ -2,6 +2,9 @@
 
 namespace Repse\Sa\databese\user;
 
+use Repse\Sa\databese\DB;
+use Repse\Sa\support\MessageBag;
+
 class Member{
 
     public bool $logged = false;
@@ -16,14 +19,14 @@ class Member{
     public ?string $memberName = null;
     public ?string $memberSurname = null;
     public string $avatar = 'empty_profile.png';
-    public $age;
+    public ?int $age = null;
     public ?string $location = null;
     public $resetToken;
     public $resetComplete;
     public int $bookmarkCount = 0;
     public ?array $bookmark = null;
 
-    public function __construct(protected $db)
+    public function __construct(protected DB $db,protected MessageBag $message)
     {
         $this->memberID = isset($_SESSION['memberID']) ? $_SESSION['memberID'] : $this->memberID;
         $this->logged = isset($_SESSION['memberID']) ? true : $this->logged;
@@ -33,6 +36,7 @@ class Member{
         $this->permission = isset($_SESSION['permission']) ? $_SESSION['permission'] : $this->permission;
         $this->activeMember = isset($_SESSION['active']) ? $_SESSION['active'] : $this->activeMember;   
         // Personal changeble inside updateMember.blade.php
+        $this->age = isset($_SESSION['age']) ? $_SESSION['age'] : $this->age;
         $this->memberName = isset($_SESSION['name']) ? $_SESSION['name'] : $this->memberName;
         $this->memberSurname = isset($_SESSION['surname']) ? $_SESSION['surname'] : $this->memberSurname;
         $this->avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : $this->avatar;
@@ -46,6 +50,23 @@ class Member{
     {
         foreach ($result as $key => $value) {
             $_SESSION[$key] = $value;
+        }
+    }
+
+    public function getUserData($username) 
+    {
+        if ($this->exists($username)) {
+            $memberdata =  $this->db->getMemeberData($username);
+            $this->avatar = $memberdata['avatar'];
+            $this->memberName = $memberdata['name'];
+            $this->memberSurname = $memberdata['surname'];
+            $this->visible = $memberdata['visible'];
+            $this->logged = false;
+            $this->age = $memberdata['age'];
+            $this->location = $memberdata['location']; 
+        }else{ 
+            $this->message->add(md5('usrnnotexist'),'Uživatel neexistuje')->style('danger');
+            return null;
         }
     }
 
@@ -72,7 +93,7 @@ class Member{
 
     public function isUnique($username,$email)
     {
-        $stmt = $this->db->from('members')->select(['username','email']);
+        $stmt = $this->db->con->from('members')->select(['username','email']);
         // structure of result is ['$key' => ['username' => $username , 'email' => $email] , ... (etc)] 
         $result = $stmt->fetchAll('username', 'email');
         $emailSearch = array_search($email,array_column($result,'email'));
@@ -87,11 +108,13 @@ class Member{
 
     public function exists($username)
     {
-        $stmt = $this->db->from('members')->select('username')->where('username',$username)->execute();
-        if(!$stmt){
+        $stmt = $this->db->con->from('members')->select('username')->where('username',$username)->execute();
+        $result =  $stmt->fetchAll();
+        if(empty($result)){
             return false;
+        }else{
+            return true;
         }
-        return true;
     }
 
     public function logout()

@@ -6,20 +6,21 @@ use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class Cache{
 
+    public function __construct(protected FilesystemAdapter $FilesystemAdapter){}
+
     public function setCache(string $articleName , $article)
     {
-        $cache = new FilesystemAdapter();
-        $cacheItem = $cache->getItem(md5($articleName));
+        $cacheItem = $this->FilesystemAdapter->getItem(md5($articleName));
 
         if(!$cacheItem->isHit())
         {
             $cacheItem->set($article);
             $cache->save($cacheItem);
-        }else
-        {
-            $item = $cacheItem->get();
-            return $item;
         }
+    }
+    public function getCache()
+    {
+        return $this->FilesystemAdapter->get();
     }
 }
 
