@@ -9,9 +9,9 @@ Localhost test website using laravel Blade template engine
 
 ###Visual code extensions
 
-[AnchorComments](https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors)\
-[LaravelBladeSnippets](https://github.com/onecentlin/laravel-blade-snippets-vscode)\
-[PHPNamespaceResolver](https://github.com/MehediDracula/PHP-Namespace-Resolver)\
+[AnchorComments](https://marketplace.visualstudio.com/items?itemName=ExodiusStudios.comment-anchors)
+[LaravelBladeSnippets](https://github.com/onecentlin/laravel-blade-snippets-vscode)
+[PHPNamespaceResolver](https://github.com/MehediDracula/PHP-Namespace-Resolver)
 [Tabnine](https://www.tabnine.com)
 
 ###Build with
@@ -21,5 +21,10 @@ Localhost test website using laravel Blade template engine
 [Ckeditor5](https://ckeditor.com)\
 [BladeOne](https://github.com/EFTEC/BladeOne)\
 [VarDumper](https://github.com/symfony/var-dumper)\
+[Bostrap5](https://getbootstrap.com)
+[PHP8](https://www.php.net/)
+[Ckeditor5](https://ckeditor.com)
+[BladeOne](https://github.com/EFTEC/BladeOne)
+[VarDumper](https://github.com/symfony/var-dumper)
 [PHPMailer](https://github.com/PHPMailer/PHPMailer)
 
