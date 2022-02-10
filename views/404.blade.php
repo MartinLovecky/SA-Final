@@ -343,7 +343,7 @@
     <div class="box__description">
       <div class="box__description-container">
         <div class="box__description-title">Upss !</div>
-        <div class="box__description-text">Stránka <b style="color:red;">@if ($selector->action != '404'){{$selector->action}}@endif</b> kterou hledáte nexistuje</div>
+        <div class="box__description-text">Stránka <b style="color:red;">@if ($selector->viewName != '404'){{$selector->viewName}}@endif</b> kterou hledáte nexistuje</div>
       </div>
       
       <a href="/index" target="_blank" class="box__button">Zpět na hlavní stránku</a>
