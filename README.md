@@ -17,7 +17,7 @@ Localhost test website using laravel Blade template engine
 ###Build with
 
 [Bostrap5](https://getbootstrap.com)\
-[PHP8] (https://www.php.net/releases/8.0)\
+[PHP8](https://www.php.net/)\
 [Ckeditor5](https://ckeditor.com)\
 [BladeOne](https://github.com/EFTEC/BladeOne)\
 [VarDumper](https://github.com/symfony/var-dumper)\
