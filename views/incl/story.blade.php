@@ -11,7 +11,7 @@
 </div>
 <nav class="d-xl-flex justify-content-xl-center align-items-xl-center" id="wp_pagnation" style="background-color:#272626">
     <ul class="pagination">
-        {!!  $wrapper->prev_page()   !!}
+        {!!  $wrapper->previous_page()   !!}
         {!!  $wrapper->main_pagnation()  !!}
         {!!  $wrapper->next_page()  !!}
     </ul>

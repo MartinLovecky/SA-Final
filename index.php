@@ -1,4 +1,6 @@
 <?php
+//TODO: Test caching system !!! 
+
 
 use eftec\bladeone\BladeOne;
 
@@ -34,10 +36,12 @@ $message = new Repse\Sa\support\MessageBag($selector);
 $request = new Repse\Sa\http\Request();
 $request->getRequest();
 
+$wrapper = new Repse\Sa\tool\html\Wrapper($selector);
 $form = new Repse\Sa\tool\html\Forms();
 $member = new Repse\Sa\databese\user\Member($db,$message);
 $validator = new Repse\Sa\support\Validator($message,$member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
+
 //FIXME: Testing Cache system for articles (curently at dev state) 
 //FIXME: Articles currently doesnt work due testing cache system (should be done in 2days)
 $FilesystemAdapter = new Symfony\Component\Cache\Adapter\FilesystemAdapter;
