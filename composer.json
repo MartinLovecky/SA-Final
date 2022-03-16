@@ -19,7 +19,6 @@
         "eftec/bladeone": "dev-master",
         "symfony/var-dumper": "6.0.x-dev",
         "envms/fluentpdo": "^2.2",
-        "symfony/cache": "6.0.x-dev",
         "phpmailer/phpmailer": "dev-master",
         "ezyang/htmlpurifier": "dev-master"
     }

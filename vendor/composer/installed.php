@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ed1f38a57d40592739fc55b2ffb8e0da2f07aff0',
+        'reference' => '6fb41f552e1174c7ab9ee3fe1828ab4ddff64934',
         'name' => 'repse/sa',
         'dev' => true,
     ),
@@ -72,85 +72,14 @@
             'reference' => '2ec690eb226ab1b0de5cd23113ee4d0c684c88ae',
             'dev_requirement' => false,
         ),
-        'psr/cache' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/cache',
-            'aliases' => array(
-                0 => '3.0.x-dev',
-            ),
-            'reference' => '0a7c67d0d1c8167b342eb74339d6f961663826ce',
-            'dev_requirement' => false,
-        ),
-        'psr/cache-implementation' => array(
-            'dev_requirement' => false,
-            'provided' => array(
-                0 => '2.0|3.0',
-            ),
-        ),
-        'psr/container' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/container',
-            'aliases' => array(
-                0 => '2.0.x-dev',
-            ),
-            'reference' => '2ae37329ee82f91efadc282cc2d527fd6065a5ef',
-            'dev_requirement' => false,
-        ),
-        'psr/log' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/log',
-            'aliases' => array(
-                0 => '3.x-dev',
-            ),
-            'reference' => 'fe5ea303b0887d5caefd3d431c3e61ad47037001',
-            'dev_requirement' => false,
-        ),
-        'psr/simple-cache-implementation' => array(
-            'dev_requirement' => false,
-            'provided' => array(
-                0 => '1.0',
-            ),
-        ),
         'repse/sa' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ed1f38a57d40592739fc55b2ffb8e0da2f07aff0',
+            'reference' => '6fb41f552e1174c7ab9ee3fe1828ab4ddff64934',
             'dev_requirement' => false,
-        ),
-        'symfony/cache' => array(
-            'pretty_version' => '6.0.x-dev',
-            'version' => '6.0.9999999.9999999-dev',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/cache',
-            'aliases' => array(),
-            'reference' => 'ae801a8429df8adf61de41b72378515b2dc6228a',
-            'dev_requirement' => false,
-        ),
-        'symfony/cache-contracts' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/cache-contracts',
-            'aliases' => array(
-                0 => '3.0.x-dev',
-            ),
-            'reference' => '2f7463f156cf9c665d9317e21a809c3bbff5754e',
-            'dev_requirement' => false,
-        ),
-        'symfony/cache-implementation' => array(
-            'dev_requirement' => false,
-            'provided' => array(
-                0 => '1.1|2.0|3.0',
-            ),
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'dev-main',
@@ -185,17 +114,6 @@
             'reference' => '57b712b08eddb97c762a8caa32c84e037892d2e9',
             'dev_requirement' => false,
         ),
-        'symfony/service-contracts' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/service-contracts',
-            'aliases' => array(
-                0 => '3.0.x-dev',
-            ),
-            'reference' => '5c8f40afd1d6bc1a569a12a0d5a82afca708261e',
-            'dev_requirement' => false,
-        ),
         'symfony/var-dumper' => array(
             'pretty_version' => '6.0.x-dev',
             'version' => '6.0.9999999.9999999-dev',
@@ -203,15 +121,6 @@
             'install_path' => __DIR__ . '/../symfony/var-dumper',
             'aliases' => array(),
             'reference' => 'c3a2032fa49a0a8266fd34ea8276d0a4c057df80',
-            'dev_requirement' => false,
-        ),
-        'symfony/var-exporter' => array(
-            'pretty_version' => '6.0.x-dev',
-            'version' => '6.0.9999999.9999999-dev',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/var-exporter',
-            'aliases' => array(),
-            'reference' => '8d9f5ad1e0654f7a323dbab9b6cc275d367fa592',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(

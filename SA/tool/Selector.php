@@ -33,6 +33,12 @@ class Selector
                     $this->viewName = 'index';
                     $this->title = 'SA | index';
                     break;
+                case 'update':
+                case 'delete':
+                case 'create':
+                    $this->viewName = 'editor';
+                    $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
+                    break;
                 case $this->url[1]:
                     $this->viewName = $this->url[1];
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;

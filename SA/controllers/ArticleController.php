@@ -2,33 +2,33 @@
 
 namespace Repse\Sa\controllers;
 
-use Repse\Sa\support\Cache;
-use Repse\Sa\tool\Selector;
-use Repse\Sa\databese\story\Article;
+use Envms\FluentPDO\Query;
+use Repse\Sa\http\Request;
 
 class ArticleController{
 
-    public function __construct(protected Selector $selector,protected Article $article,protected Cache $cache){}
+    public function __construct(protected Query $db){}
 
-    public function inputArticleToCache()
+   /**
+    * use this fuction only if you dont have access to the database
+    * @param Request $request
+    * @return void for now
+    */
+    public function create(Request $request) : void
     {
-        if(isset($this->selector->article))
-        {
-            $parsedArticle = $this->cache->setCache($this->selector->article,$this->article->getArticle($this->selector->article,$this->selector->page));
-            return $parsedArticle;
-        }
+        $values = ['chapter'=>(isset($request->chapter)) ? $request->chapter : null,'body'=>$request->content,'pg_num'=>$request->page];
+        $this->db->insertInto($request->article,$values)->execute();
     }
 
-    public function getArticleFromCache()
-    {   
-
-        $args = func_get_args();
-        if(!empty($args))
-        {
-            $parsedArticle = $this->cache->setCache($args[0],$this->article->getArticle($args[0],$args[1]));
-            return $parsedArticle;
-        }
-
+    public function update(Request $request) : void
+    {
+        $values = ['chapter'=>(isset($request->chapter)) ? $request->chapter : null,'body'=>$request->content];
+        $this->db->update($request->article)->set($values)->where('pg_num',$request->page)->execute();
     }
 
+    public function delete(Request $request)  : void
+    {
+        $this->db->deleteFrom($request->article)->where('pg_num',$request->page)->execute();
+    }
+   
 }

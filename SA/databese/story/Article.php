@@ -2,7 +2,8 @@
 
 namespace Repse\Sa\databese\story;
 
-use Repse\Sa\databese\DB;
+
+use Envms\FluentPDO\Query;
 use Repse\Sa\support\MessageBag;
 
 class Article
@@ -11,9 +12,9 @@ class Article
     public string $articleBody;
     public string $articleChapter;
   
-    public function __construct(protected $db, protected MessageBag $message){}
+    public function __construct(protected Query $db, protected MessageBag $message){}
 
-    public function getArticle($article, $page)
+    public function getArticle(string $article, $page)
     {
         $stmt = $this->db->from($article)->where('pg_num', $page);
         $row = $stmt->fetchAll('body', 'chapter');

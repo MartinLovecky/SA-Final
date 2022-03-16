@@ -8,4 +8,5 @@
         'form'              => $form,
         'blade'             => $blade,   
         'requestController' => $requestController,
+        'articleController' => $articleController
     ];
