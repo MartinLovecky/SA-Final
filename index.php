@@ -1,6 +1,4 @@
 <?php
-//TODO: Test caching system !!! 
-
 
 use eftec\bladeone\BladeOne;
 
@@ -41,13 +39,9 @@ $form = new Repse\Sa\tool\html\Forms();
 $member = new Repse\Sa\databese\user\Member($db,$message);
 $validator = new Repse\Sa\support\Validator($message,$member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
-
-//FIXME: Testing Cache system for articles (curently at dev state) 
-//FIXME: Articles currently doesnt work due testing cache system (should be done in 2days)
-$FilesystemAdapter = new Symfony\Component\Cache\Adapter\FilesystemAdapter;
-$cache = new Repse\Sa\support\Cache($FilesystemAdapter);
+//TODO: ArticleController functions update,delete,create returns void later they should return message
 $article = new Repse\Sa\databese\story\Article($db->con,$message);
-$articleController = new Repse\Sa\controllers\ArticleController($selector,$article,$cache);
+$articleController = new Repse\Sa\controllers\ArticleController($db->con);
 
 $member->checkRemember();
 
