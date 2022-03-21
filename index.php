@@ -21,7 +21,8 @@ $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();
 //NOTE: allowedViews must have '' inside array otherwise index will not work.
-//NOTE: Page must exist inside views  
+//NOTE: Page must exist inside views 
+//NOTE: $selector->viewName() is not same as $selector->action !!!
 $selector->allowedViews = require(__DIR__ . '/app/allowedViews.php');
 $selector->viewName();
 
@@ -40,8 +41,8 @@ $member = new Repse\Sa\databese\user\Member($db,$message);
 $validator = new Repse\Sa\support\Validator($message,$member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
 //TODO: ArticleController functions update,delete,create returns void later they should return message
-$article = new Repse\Sa\databese\story\Article($db->con,$message);
-$articleController = new Repse\Sa\controllers\ArticleController($db->con);
+$article = new Repse\Sa\databese\story\Article($db->con,$message,$selector);
+$articleController = new Repse\Sa\controllers\ArticleController($db->con,$message,$purifier);
 
 $member->checkRemember();
 

@@ -7,6 +7,7 @@ class Selector
     protected array $url;
     protected ?array $queryArray = null;
     public ?string $viewName = null;
+    public ?string $action = null;
     public ?string $article = null;
     public ?string $page = null;
     public ?string $fristQueryValue = null;
@@ -19,6 +20,7 @@ class Selector
         # url[0] = allways empty string
         $this->url = explode('/', trim(str_replace(['<','>','!','@','$'], '', urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
         $this->queryArray = explode('=', $_SERVER['QUERY_STRING']);
+        $this->action = isset($this->url[1]) ? $this->url[1] : $this->action;
         $this->article = isset($this->url[2]) ? $this->url[2] : $this->article;
         $this->page = isset($this->url[3]) ? $this->url[3] : $this->page;
         $this->fristQueryValue = !empty($this->queryArray[0]) ? filter_input(INPUT_GET, trim($this->queryArray[0])) : $this->fristQueryValue;
