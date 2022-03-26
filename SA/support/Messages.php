@@ -2,18 +2,56 @@
 
 namespace Repse\Sa\support;
 
-use Repse\Sa\support\MessageBag;
+use Repse\Sa\tool\Selector;
 
-class QueryMessages extends MessageBag{
+class Messages {
 
-    public function setActionMessage($queryMessage){
-       switch ($queryMessage) {
+    public array $messages = [];
+    public ?string $style = null;
+    public ?string $message = null;
+
+    public function __construct(protected Selector $selector){}
+
+    public function add(string $message)
+    {
+       $this->messages[] = $message;
+    }
+
+    public function getMessage()
+    {
+        if(!empty($this->messages)){
+            foreach($this->messages as $key => $value){
+                $qmessage = explode('.',$value);
+                $this->style = $qmessage[0];
+                $this->message = $qmessage[1];
+                return $this;
+            }
+        }
+    }
+
+    public function isNotEmpty()
+    {
+        return !empty($this->messages);
+    }
+
+    public function display()
+    {
+        return include_once(dirname(__DIR__,2).'/app/message.php');
+    }
+
+    public function getQueryMessage(){
+       switch ($this->selector->fristQueryValue) {
         case 'failExist':
-           return $this->add(md5('failExist'),'Stránka již existuije použijte /update')->style('danger');
+            return $this->messages[] = 'danger.Stránka nexistuje,Vytvořte jí <a  href="/create/'.$this->selector->article.'/'.$this->selector->page.'">/create/'.$this->selector->article.'/'.$this->selector->page.'</a>';
+                break;
+        case 'logged':
+            return $this->messages[] = 'success.Přihlášení úspěšné';
                 break;
         case 'created':
-            return $this->add(md5('created'),'Stránka úspěšně vyvořena')->style('success');
-                break;
+            return $this->messages[] = 'success.Stránka úspěšně vyvořena';
+                break;                        
+                /*
+        
         case 'failUpdate':
             return $this->add(md5('failUpdate'),'Stránka neexistuje vytvořte jí pomocí /create')->style('danger');
                 break;
@@ -56,14 +94,13 @@ class QueryMessages extends MessageBag{
         case 'joined':
             return $this->add(md5('joined'),'Registrace úspěšná, pro aktivovaní účtu zkotrolujte email')->style('success');
                 break;
-        case 'logged':
-            return $this->add(md5('logged'),'Přihlášení úspěšné')->style('success');
-                break;
+       
         case 'permission':
             return $this->add(md5('permission'),'Pro zobrazení se musíte <a href="/login"></br>Přihlásit</a> / <a href="/register">Registovat</a>')->style('danger');
         case 'hash':
             return $this->add(md5('hash'),'Pro změnu hesla je nutné ověřit e-mail')->style('danger');
                 default: null;
+        */
            
        }
     }

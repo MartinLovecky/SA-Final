@@ -1,16 +1,5 @@
 <?php
 
-if(isset($articleController))
-{
-    match($request->type)
-    {
-        'update' => $articleController->update($request),
-        'delete' => $articleController->delete($request),
-        'create' => $articleController->create($request),
-        default => null,
-    };
-}
-
 if(property_exists($request,'submit') && $request->submit === 'submit')
 {
     match($request->type)
@@ -22,8 +11,10 @@ if(property_exists($request,'submit') && $request->submit === 'submit')
         'bookmark'      => $requestController->submitBookmark($request),
         'kontakt'       => $requestController->submitKontakt($request),
         'update_member' => $requestController->updateMember($request),
+        'update'        => $articleController->update($request),
+        'delete'        => $articleController->delete($request),
+        'create'        => $articleController->create($request),
         default => null,
     };
 }
-
 ?>

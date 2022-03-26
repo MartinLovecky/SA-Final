@@ -3,11 +3,11 @@
         'selector'          => $selector,
         'wrapper'           => $wrapper,
         'request'           => $request,
-        'message'           => $message,
         'member'            => $member,
         'form'              => $form,
         'blade'             => $blade,   
         'requestController' => $requestController,
         'articleController' => $articleController,
-        'article'           => $article
+        'article'           => $article,
+        'message'           => $message
     ];

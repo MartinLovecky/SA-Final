@@ -1,4 +1,4 @@
-@extends('incl.app',['message'=>$message,'selector'=>$selector])
+@extends('incl.app',['selector'=>$selector,'message'=>$message])
 @section($selector->viewName)
 @if (!$member->logged)
 <section class="login-dark">

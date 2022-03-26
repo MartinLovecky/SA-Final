@@ -38,11 +38,12 @@
     </script>  
 </head>
 <body>
-
-@if ($message->isNotEmpty())
-
-{!! $message->display() !!}
-
+@isset($selector->fristQueryValue)
+@php  $message->getQueryMessage(); @endphp
+@endisset
+@php  $message->getMessage(); @endphp
+@if($message->isNotEmpty())
+  {!! $message->display() !!}
 @endif
 
 @yield($selector->viewName)

@@ -3,7 +3,6 @@
 namespace Repse\Sa\databese\user;
 
 use Repse\Sa\databese\DB;
-use Repse\Sa\support\MessageBag;
 
 class Member{
 
@@ -26,7 +25,7 @@ class Member{
     public int $bookmarkCount = 0;
     public ?array $bookmark = null;
 
-    public function __construct(protected DB $db,protected MessageBag $message)
+    public function __construct(protected DB $db)
     {
         $this->memberID = isset($_SESSION['memberID']) ? $_SESSION['memberID'] : $this->memberID;
         $this->logged = isset($_SESSION['memberID']) ? true : $this->logged;
@@ -65,7 +64,7 @@ class Member{
             $this->age = $memberdata['age'];
             $this->location = $memberdata['location']; 
         }else{ 
-            $this->message->add(md5('usrnnotexist'),'Uživatel neexistuje')->style('danger');
+            //$this->message->add(md5('usrnnotexist'),'Uživatel neexistuje')->style('danger');
             return null;
         }
     }
@@ -87,7 +86,7 @@ class Member{
         // frist step get all members from db
         // Display message if active is not YES
         if($this->logged && $this->activeMember != 'YES'){
-            @$_SESSION = ['message'=> $this->message->add(md5('Active'),' <a href="reactivate?x='.$this->memberID.'&y=ActivasionHash">Poslat email znovu<')];
+            @$_SESSION = ['message'=> 'Active.<a href="reactivate?x='.$this->memberID.'&y=ActivasionHash">Poslat email znovu</a>'];
         }
     }
 

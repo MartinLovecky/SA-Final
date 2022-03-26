@@ -1,4 +1,4 @@
-@extends('incl.app',['message'=>$message,'selector'=>$selector])
+@extends('incl.app',['selector'=>$selector,'message'=>$message])
 @section($selector->viewName)
 @if ($member->permission === 'admin' || $member->permission === 'editor')
 <div class="article-list">
@@ -12,6 +12,7 @@
                     <li class="breadcrumb-item"><a href="/update">Update</a></li>
                     <li class="breadcrumb-item"><a href="/delete">Delete</a></li>
                 <ol>
+                    @dump($articleController->create($request))
                 <ol class="breadcrumb">
                     @if (!$selector->article)
                     <li class="breadcrumb-item"><span class="text-success">Příběh:&nbsp;</span><li>    
@@ -55,9 +56,9 @@
                     <input type="hidden" name="type" value="{{$selector->viewName}}">
                     <input type="hidden" name="article"  value="{{$selector->article}}">
                     <input type="hidden" name="page" value="{{$selector->page}}">
+                @endisset
                     <button class="btn btn-success btn-block" value="submit" name="submit" type="submit">Odeslat na server</button>
                     <p class="text-white"> * Pro vykonání jakékoliv akce je nutné kliknout na Odeslat na server nestačí pouze změnit url a dát ENTRER !!!!!</p>
-                @endisset
             </form>
     </div>
 </div>

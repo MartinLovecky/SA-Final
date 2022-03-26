@@ -1,8 +1,8 @@
-@extends('incl.app',['message'=>$message,'selector'=>$selector])
+@extends('incl.app',['selector'=>$selector,'message'=>$message])
 @section($selector->viewName)
 @include('incl.menu',['member'=>$member])
 @if (!isset($selector->article))
-    @php $message->add(md5('MemberMiss'),'Pro zobrazení uživatele musí být zadáno jeho jméno')->style('danger'); @endphp
+    {{-- $message->add(md5('MemberMiss'),'Pro zobrazení uživatele musí být zadáno jeho jméno')->style('danger');  --}}
 @endif
 
 @if(isset($selector->article) && $selector->article !== $member->username) 

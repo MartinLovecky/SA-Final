@@ -6,8 +6,8 @@ use Repse\Sa\databese\DB;
 use Repse\Sa\tool\Mailer;
 use Repse\Sa\http\Request;
 use Repse\Sa\support\Validator;
-use Repse\Sa\support\MessageBag;
 use Repse\Sa\databese\user\Member;
+use Repse\Sa\support\Messages;
 
 class RequestController{
 
@@ -15,8 +15,7 @@ class RequestController{
         protected DB $db,
         protected Mailer $email,
         protected Validator $validator,
-        protected MessageBag $message,
-        ) {}
+        protected Messages $message) {}
     
     public function submitRegister(Request $request)
     {
@@ -24,7 +23,7 @@ class RequestController{
         $this->validator->validateRegister($request);
         if ($this->message->isNotEmpty()) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
-            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email,'message'=>$this->message->getMessages()];
+            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email];
             return false; 
         }
         //Progress with registration
@@ -40,7 +39,8 @@ class RequestController{
             'bookmarkCount'=>0,
             'visible'=>1
         ];
-        $smtp = $this->db->con->insertInto('members')->values($values)->execute();
+        
+        $this->db->con->insertInto('members')->values($values)->execute();
         $id = $this->db->getID($request->username);
         //Parse data to email template and send email
         $emailTemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/views/emailTemplate/register.php');
@@ -57,12 +57,12 @@ class RequestController{
         $this->validator->validateLogin($request);
         if ($this->message->isNotEmpty()) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
-            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'message'=>$this->message->getMessages()];
+            @$_SESSION = ['style'=>'danger','old_username'=>$request->username];
             return false; 
         }
         if (isset($request->remeber) && $request->remeber == 'yes') {
             setcookie('remeber',$request->username,time()+(86400 * 7),"/");
-            $update = $this->db->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
+            $this->db->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
         }
         $memberData = $this->db->getMemeberData($request->username);
         Member::setSession($memberData);

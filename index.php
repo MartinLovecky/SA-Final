@@ -26,23 +26,22 @@ $selector = new Repse\Sa\tool\Selector();
 $selector->allowedViews = require(__DIR__ . '/app/allowedViews.php');
 $selector->viewName();
 
+$message = new Repse\Sa\support\Messages($selector);
 $mailer = new Repse\Sa\tool\Mailer();
 //NOTE: $db->con returns fluent PDO (https://www.sitepoint.com/getting-started-fluentpdo/) 
 //NOTE: IF you need use Build in function from PDO or your own functions from DB in other class use only $db
 $db = new Repse\Sa\databese\DB();
-$message = new Repse\Sa\support\MessageBag($selector);
-
 $request = new Repse\Sa\http\Request();
 $request->getRequest();
 
 $wrapper = new Repse\Sa\tool\html\Wrapper($selector);
 $form = new Repse\Sa\tool\html\Forms();
-$member = new Repse\Sa\databese\user\Member($db,$message);
-$validator = new Repse\Sa\support\Validator($message,$member);
+$member = new Repse\Sa\databese\user\Member($db);
+$validator = new Repse\Sa\support\Validator($member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
 //TODO: ArticleController functions update,delete,create returns void later they should return message
-$article = new Repse\Sa\databese\story\Article($db->con,$message,$selector);
-$articleController = new Repse\Sa\controllers\ArticleController($db->con,$message,$purifier);
+$article = new Repse\Sa\databese\story\Article($db->con,$selector);
+$articleController = new Repse\Sa\controllers\ArticleController($db->con,$purifier,$message);
 
 $member->checkRemember();
 
