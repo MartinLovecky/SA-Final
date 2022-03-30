@@ -3,6 +3,7 @@
 namespace Repse\Sa\databese\user;
 
 use Repse\Sa\databese\DB;
+use Repse\Sa\tool\Selector;
 
 class Member{
 
@@ -87,6 +88,32 @@ class Member{
         // Display message if active is not YES
         if($this->logged && $this->activeMember != 'YES'){
             @$_SESSION = ['message'=> 'Active.<a href="reactivate?x='.$this->memberID.'&y=ActivasionHash">Poslat email znovu</a>'];
+        }
+    }
+
+    public function activateMember(Selector $selector)
+    {
+        // Check hash in db table and given hash
+        // URL/activate?x=MemberID&y=ActivasionHash
+        $backup  = base64_encode('FailedActivation');
+        $id = $selector->fristQueryValue;
+        if('FailedActivation' != base64_decode($id)){
+            $hash = $selector->secondQueryValue;
+            $stmt = $this->db->con->from('members')->select('active')->where('memberID',$id)->execute();
+            $data = $stmt->fetch();
+            if($data == $hash){
+                $set = ['active'=>'yes'];
+                $query = $this->db->con->update('members', $set, $id)->execute();
+                if($query){
+                    header('Location: /activate?action='.$backup.'&x='.$id);
+                }
+            }
+            header('Location: /activate?action='.$backup.'&x='.$id);
+        }else{
+            $failID = $selector->secondQueryValue;
+            $set = ['active'=>'yes']; 
+            $query = $this->db->con->update('members', $set, $failID)->execute();
+            header('Location: /login?action=active');
         }
     }
 

@@ -38,10 +38,10 @@ $wrapper = new Repse\Sa\tool\html\Wrapper($selector);
 $form = new Repse\Sa\tool\html\Forms();
 $member = new Repse\Sa\databese\user\Member($db);
 $validator = new Repse\Sa\support\Validator($member);
-$requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator,$message);
+$requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator);
 //TODO: ArticleController functions update,delete,create returns void later they should return message
 $article = new Repse\Sa\databese\story\Article($db->con,$selector);
-$articleController = new Repse\Sa\controllers\ArticleController($db->con,$purifier,$message);
+$articleController = new Repse\Sa\controllers\ArticleController($db->con,$purifier);
 
 $member->checkRemember();
 

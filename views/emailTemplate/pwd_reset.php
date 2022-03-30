@@ -6,8 +6,8 @@
   <tbody>
   <tr>
     <td class="m_-3655226564915594624header__logo" style="padding:10px 0;text-align:left">
-      <a href="<?php echo $_SERVER['DOCUMENT_ROOT'];?>/index" style="color:#ec028c" target="_blank" >
-        <img src="<?php echo $_SERVER['DOCUMENT_ROOT'];?>/public/img/logo.png" width="200" height="44" border="0" class="CToWUd">
+      <a href="URL/index" style="color:#ec028c" target="_blank" >
+        <img src="URL/public/img/logo.png" width="200" height="44" border="0" class="CToWUd">
       </a>
     </td>
   </tr>
@@ -19,7 +19,7 @@
         dokončete proces kliknutím na "Reset Hesla". Pokud jste to nebyli vy, kdo požadavek poslal, můžete tento e-mail ignorovat.
     </p>
     <span style="text-align:center;display:block">
-       <a href="<?php echo $_SERVER['DOCUMENT_ROOT'];?>/resetPassword?action=Suplytoken&x=MemberID" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
+       <a href="URL/resetPassword?action=Suplytoken&x=MemberID" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
         Reset Hesla &nbsp;»
        </a>
    </span>

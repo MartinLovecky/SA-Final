@@ -34,38 +34,36 @@ class Validator
     {
         if($this->propertiesExist($request) && $request->persistent_register == 'yes' && $this->validCSFR($request->_token))
         {
-             if(!empty($request->username) &&
+            if(!empty($request->username) &&
                 !empty($request->email) &&
                 !empty($request->password) && 
-                !empty($request->password_again))
-                {
-                if (!$this->member->isUnique($request->username,$request->email)) {
-                    //$this->message->add(md5('Username'),'Jméno nebo email se již používá');
+                !empty($request->password_again)){
+                if (!$this->member->isUnique($request->username,$request->email)){
+                    return '/regiter?action=Uexist';
                 }
                 if(strlen($request->username) < 4 && strlen($request->username) > 35){
-                    //$this->message->add(md5('UsernameLen'),'Uživatelské jméno musí obsahovat nejméně 4 znaky a ne více jak 35');
+                    return '/regiter?action=Ulen';
                 }
                 if (!ctype_alnum($request->username)) {
-                    //$this->message->add(md5('UsernameNum'),'Uživatelské jméno musí obsahovat nejméně 1 číslo');
+                    return '/regiter?action=UNum';
                 }
-                if (strlen($request->password) < 6 || strlen($request->password_again) < 6) {
-                    //$this->message->add(md5('PWDLen'),'Příliž krátké heslo. Musí obsahovat nejméně 6 znaků');
+                if (strlen($request->password) < 6 || strlen($request->password_again) < 6){
+                    return '/regiter?action=PWDLen';
                 }
-                if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&]).*$/',$request->password)) {
-                    //$this->message->add(md5('PWDSpec'),'Heslo musí obasahovat nejméně jedno malé a velké písmeno a jeden specialní znak(!@$%^&)');
+                if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&]).*$/',$request->password)){
+                    return '/regiter?action=PWDSpec';
                 }
-                if ($request->password !== $request->password_again) {
-                    //$this->message->add(md5('PWDSpec'),'Heslo se neschoduje se neschoduje s heslem znovu');
+                if ($request->password !== $request->password_again){
+                    return '/regiter?action=PWDAga';
                 }
-                if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
-                    //$this->message->add(md5('PWDSpec'),'Neplatný formát e-mailu');
+                if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+                    return '/regiter?action=FilterE';
                 }
-                return null;
+            return null;
             }
-            //$this->message->add(md5('Fail'),'Všechna pole musí být vyplneněna');
-        }else
-        {
-            //$this->message->add(md5('Persistent'),'Pro úspěšnou registraci musíte souhlasit se smluvními podmínkami a ochranou soukromí');
+            return '/regiter?action=FField';
+        }else{
+            return '/regiter?action=Persistent';
         }
     }
 
@@ -75,7 +73,7 @@ class Validator
             if(!empty($request->username) && !empty($request->password))
             {
                 if (!$this->member->exists($request->username)) {
-                    $this->message->add(md5('Username'),'Uživatelské jméno neexistuje');
+                    return '/regiter?action=UNexist';
                 }
             }
         }

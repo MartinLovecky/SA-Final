@@ -11,5 +11,7 @@
         'register',
         'requestHandler',
         'login',
-        'logout'
+        'logout',
+        'activate',
+        'reset'
      ];
