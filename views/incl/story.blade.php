@@ -1,10 +1,12 @@
+@php  $article->getArticle($selector->article,$selector->page);  @endphp
 <div class="article-list">
     <div class="container-fluid features-boxed">
         <div class="row" style="padding-top: 16px;">
             <div class="col-md-6 col-xl-10 offset-xl-1">
-                @if (!empty($articlesController->Article['chapter']))
-            <h1 class="text-center">{{$articlesController->Article['chapter']}}</h1>@endif
-            {!! $articlesController->Article['body']   !!}
+                @if (!empty($article->articleChapter)) 
+                    <h1 class="text-center">{{$article->articleChapter}}</h1>
+                @endif
+                    {!! $article->articleBody !!}
             </div>
         </div>
     </div>
@@ -16,3 +18,9 @@
         {!!  $wrapper->next_page()  !!}
     </ul>
 </nav>
+{{-- 
+    
+    1) $selector->article  is set && $selector->page is set;
+    2) we neee call fuction $article->getArticle($article,$page);
+
+--}}

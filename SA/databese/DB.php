@@ -41,7 +41,7 @@ class DB{
         }catch(PDOException $exception){
 
             if($exception->getCode() == 2002)
-                echo '<b>PLease conctact admin with message Database conection doesnt exist';
+                echo '<b style="color:red">Please send email to NoName95@seznam.cz with message: Database conection doesnt exist.</b>';
             $err = $exception->getMessage() . (int)$exception->getCode();
             throw new PDOException($err);    
         }

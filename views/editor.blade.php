@@ -12,7 +12,6 @@
                     <li class="breadcrumb-item"><a href="/update">Update</a></li>
                     <li class="breadcrumb-item"><a href="/delete">Delete</a></li>
                 <ol>
-                    @dump($articleController->create($request))
                 <ol class="breadcrumb">
                     @if (!$selector->article)
                     <li class="breadcrumb-item"><span class="text-success">Příběh:&nbsp;</span><li>    

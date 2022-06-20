@@ -4,7 +4,7 @@ namespace Repse\Sa\tool;
 
 class Selector
 {
-    protected array $url;
+    protected array $url = [];
     protected ?array $queryArray = null;
     public ?string $viewName = null;
     public ?string $action = null;
@@ -13,6 +13,7 @@ class Selector
     public ?string $fristQueryValue = null;
     public ?string $secondQueryValue = null;
     public ?string $title = null;
+    public $file = null;
     public array $allowedViews = [];
 
     public function __construct()
@@ -34,19 +35,19 @@ class Selector
                 case '':
                     $this->viewName = 'index';
                     $this->title = 'SA | index';
-                    break;
+                break;
                 case 'update':
                 case 'delete':
                 case 'create':
                     $this->viewName = 'editor';
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
-                    break;
+                break;   
                 case $this->url[1]:
                     $this->viewName = $this->url[1];
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
-                    break;
+                break;
             }
-        } 
+        }
         else{
             # If page is not allowed 404
             $this->viewName = '404';

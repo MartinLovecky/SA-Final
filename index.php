@@ -16,7 +16,7 @@ $dotenv->load();
 $dotenv->required(['DB_NAME','DB_USER','DB_HOST','DB_PASS']);
 
 $blade = new BladeOne(__DIR__ . '/views', __DIR__ . '/cache',BladeOne::MODE_AUTO);
-$blade->setBaseUrl('/public/');
+$blade->setBaseUrl('/public');
 $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();

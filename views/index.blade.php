@@ -28,23 +28,23 @@
             <div class="col-md-6 col-xl-7 offset-xl-0 index_list">
                 <h4>Všechny příběhy</h4>
                 <ul class="index_list-style">
-                    <li><a href="#">Allwin</a>&nbsp;→&nbsp;Vysvětluje počátek světa, ve kterém se příběh odehrává.<br></li>
-                    <li><a href="#">Samuel</a>&nbsp;→&nbsp;Začátek hlavního příběhu.<br></li>
-                    <li><a href="#">Isama</a>&nbsp;→&nbsp;Navazuje na příběh Samuela.<br></li>
-                    <li><a href="#">Nový Horizont</a>&nbsp;→&nbsp;Pokračování Isamova příběhu.<br></li>
-                    <li><a href="#">Nový Svět</a>&nbsp;→&nbsp;Závěrečná část Isamova příběhu<br></li>
-                    <li><a href="#">Angel &amp; Eklips</a>&nbsp;→&nbsp;Příběh má spojitost s příběhem Allwina.<br></li>
-                    <li><a href="#">Mr.Y</a>&nbsp;→&nbsp;Vysvětluje původ Mr.?<br></li>
-                    <li><a href="#">White Star</a>&nbsp;→&nbsp;Příběh popisuje minulost White Stara.<br></li>
-                    <li><a href="#">Lord Terror</a>&nbsp;→&nbsp;Důležitá postava v Novém světě.<br></li>
-                    <li><a href="#">Hyperion</a>&nbsp;→&nbsp;Historie Nového světa.<br></li>
-                    <li><a href="#">Démoni</a>&nbsp;→&nbsp;Příběh vysvětlující rasu Démonů.<br></li>
+                    <li><a href="/show/allwin/1">Allwin</a>&nbsp;→&nbsp;Vysvětluje počátek světa, ve kterém se příběh odehrává.<br></li>
+                    <li><a href="/show/samuel/1">Samuel</a>&nbsp;→&nbsp;Začátek hlavního příběhu.<br></li>
+                    <li><a href="/show/isama/1">Isama</a>&nbsp;→&nbsp;Navazuje na příběh Samuela.<br></li>
+                    <li><a href="/show/isamanh/1">Nový Horizont</a>&nbsp;→&nbsp;Pokračování Isamova příběhu.<br></li>
+                    <li><a href="/show/isamanw/1">Nový Svět</a>&nbsp;→&nbsp;Závěrečná část Isamova příběhu<br></li>
+                    <li><a href="/show//1">Angel &amp; Eklips</a>&nbsp;→&nbsp;Příběh má spojitost s příběhem Allwina.<br></li>
+                    <li><a href="/show/mry/1">Mr.Y</a>&nbsp;→&nbsp;Vysvětluje původ Mr.?<br></li>
+                    <li><a href="/show/white/1">White Star</a>&nbsp;→&nbsp;Příběh popisuje minulost White Stara.<br></li>
+                    <li><a href="/show/terror/1">Lord Terror</a>&nbsp;→&nbsp;Důležitá postava v Novém světě.<br></li>
+                    <li><a href="/show//1">Hyperion</a>&nbsp;→&nbsp;Historie Nového světa.<br></li>
+                    <li><a href="/show//1">Démoni</a>&nbsp;→&nbsp;Příběh vysvětlující rasu Démonů.<br></li>
                 </ul>
                 <h4>Vysvětlivky</h4>
                 <ul class="index_list-style">
                     <li>"Text"&nbsp;→&nbsp;Jedná se o myšlenky postav.</li>
                     <li>???? →&nbsp;Jedná se o myšlenky postav.</li>
-                    <li><span style="color: #ff4c34;">Text</span>&nbsp;→&nbsp;Důležitá informace/událost.</li>
+                    <li><span style="color: #34ff67;">Text</span>&nbsp;→&nbsp;Důležitá informace/událost.</li>
                     <li>'Text' → označuje přibližný popis př. Budova vypadala jako 'klášter'.</li>
                 </ul>
             </div>

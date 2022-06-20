@@ -8,13 +8,18 @@ use Repse\Sa\http\Request;
 use Repse\Sa\support\Validator;
 use Repse\Sa\databese\user\Member;
 
-
 class RequestController{
 
-    public function __construct(
-        protected DB $db,
-        protected Mailer $email,
-        protected Validator $validator) {}
+    /**
+     * Fluent PDO connection 
+     * Envms\FluentPDO\Query;
+     * @var [FuentPDO]
+     */
+    protected $con;
+
+    public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator){
+        $this->con = $db->con;
+    }
     
     public function submitRegister(Request $request)
     {
@@ -39,14 +44,13 @@ class RequestController{
             'visible'=>1
         ];
         
-        $this->db->con->insertInto('members')->values($values)->execute();
+        $this->con->insertInto('members')->values($values)->execute();
         $id = $this->db->getID($request->username);
         //Parse data to email template and send email
         $emailTemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/views/emailTemplate/register.php');
         $body = str_replace(['YourUsername','MemberID','ActivisionHash','URL'],[$this->request->username,$id,$activate,$_SERVER['DOCUMENT_ROOT']],$emailTemplate);
         $info = ['subject'=>'Potvrzení registrace','to'=>$this->request->email];
-        if($this->email->sender($body,$info))
-        {
+        if($this->email->sender($body,$info)){
             header("Location: /login?action=joined"); die;
         }
     }
@@ -61,7 +65,7 @@ class RequestController{
         }
         if (isset($request->remeber) && $request->remeber == 'yes') {
             setcookie('remeber',$request->username,time()+(86400 * 7),"/");
-            $this->db->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
+            $this->con->update('members')->set(['remeber'=>'1'])->where('username',$request->username)->execute();
         }
         $memberData = $this->db->getMemeberData($request->username);
         Member::setSession($memberData);
@@ -71,7 +75,7 @@ class RequestController{
     public function reset_send(Request $request)
     {
         //TODO: VALIDATION of email,Suplytoken
-        $stmt = $this->db->con->from('members')->select(['memberID','username'])->where('email',$request->email)->execute();
+        $stmt = $this->con->from('members')->select(['memberID','username'])->where('email',$request->email)->execute();
         $data = $stmt->fetchAll();
         $token = md5(uniqid(rand(), true));
         $activate  = hash('SHA256', ($token));
@@ -82,7 +86,7 @@ class RequestController{
         // SEND EMAIL WITH link 
         if($this->email->sender($body,$info)){
             $set = ['resetToken'=>$activate,'resetComplete'=>'no'];
-            $stmt = $this->db->con->update('members')->set($set)->where('email',$request->email)->execute();
+            $stmt = $this->con->update('members')->set($set)->where('email',$request->email)->execute();
             if($stmt){
                 header("Location: /reset?action=Esend"); die;
             }
@@ -93,11 +97,15 @@ class RequestController{
 
     public function reset_pwd(Request $request)
     {
-        $set = [];
-        $stmt = $this->db->con->update('members')->set($set)->where('memberID',$request->memberID)->execute();
-        // check if emil exist and send link to reset account
-        // /resetPassword?action=Suplytoken&x=MemberID
-        //$emailTemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/views/emailTemplate/register.php');
-        //$body = str_replace(['YourUsername','MemberID','Suplytoken','URL'],[$this->request->username,$id,$activate,$_SERVER['DOCUMENT_ROOT']],$emailTemplate);
+        $stmt = $this->con->from('members')->select('resetToken')->where('memberID',$request->memberID)->execute();
+        $data = $stmt->fetch('resetToken');
+        if(hash_equals($data,$request->hash)){
+            $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
+            $set = ['resetToken'=>null,'resetComplete'=>'yes','password'=>$hashPassword];
+            $stmt = $this->db->con->update('members')->set($set)->where('memberID',$request->memberID)->execute();
+            if($stmt){
+                header("Location: /login?action=resetAccount");
+            }
+        }
     }
 }

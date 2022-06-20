@@ -23,7 +23,7 @@ class Wrapper {
         if($this->selector->page <= 1 || $this->selector->page >= 300){
             return '<li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
         }
-        return '<li class="page-item"><a class="page-link" href="/'.$this->selector->viewName.'/'.$this->article.'/'.$previous_page.'#wp-pagnation" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+        return '<li class="page-item"><a class="page-link" href="/'.$this->selector->action.'/'.$this->article.'/'.$previous_page.'#wp-pagnation" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
     }
 
     public function main_pagnation()
@@ -33,7 +33,7 @@ class Wrapper {
         for ($x = ($this->page - $range); $x < (($this->page + $range) + 1); $x++) {
             if (($x > 0) && ($x <= $totalpages)) {
                 $active = ($this->page == $x) ? 'active': null;
-                echo '<li class="page-item '.$active.' "><a class="page-link" href="/'.$this->selector->viewName.'/'.$this->article.'/'.$x.'#wp-pagnation">'.$x.'</a></li>';
+                echo '<li class="page-item '.$active.' "><a class="page-link" href="/'.$this->selector->action.'/'.$this->article.'/'.$x.'#wp-pagnation">'.$x.'</a></li>';
             }
         }
     }
@@ -44,7 +44,7 @@ class Wrapper {
         if ($this->page < 1 || $this->page >= 300) {
             return '<li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
         }
-        return '<li class="page-item"><a class="page-link" href="/'.$this->selector->viewName.'/'.$this->article.'/'.$next.'#wp-pagnation" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
+        return '<li class="page-item"><a class="page-link" href="/'.$this->selector->action.'/'.$this->article.'/'.$next.'#wp-pagnation" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
     }
 }
 

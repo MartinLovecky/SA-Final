@@ -6,12 +6,19 @@ use Repse\Sa\tool\Selector;
 
 class Messages
 {
-
+    private ?array $params  = null;
+    private ?string $article = null;
+    private ?int $page = null;
     public array $messages = [];
     public ?string $style = null;
     public ?string $message = null;
 
-    public function __construct(protected Selector $selector){}
+    public function __construct(protected Selector $selector){
+        $this->params = (isset($this->selector->secondQueryValue)) ? explode('.',$this->selector->secondQueryValue) : $this->params;
+        $this->article =  (isset($this->params[0])) ? $this->params[0] : $this->article;
+        $this->page = (isset($this->params[1])) ? (int)$this->params[1] : $this->page;
+
+    }
 
     public function add(string $message)
     {
@@ -44,7 +51,7 @@ class Messages
     {
         switch ($this->selector->fristQueryValue) {
             case 'failExist':
-                return $this->messages[] = 'danger.Stránka nexistuje,Vytvořte jí <a  href="/create/' . $this->selector->article . '/' . $this->selector->page . '">/create/' . $this->selector->article . '/' . $this->selector->page . '</a>';
+                return $this->messages[] = 'danger.Stránka nexistuje,Vytvořte jí <a  href="/create/' . $this->article . '/' . $this->page . '">/create/' . $this->article . '/' . $this->page . '</a>';
                 break;
             case 'logged':
                 return $this->messages[] = 'success.Přihlášení úspěšné';
@@ -99,7 +106,10 @@ class Messages
                 break;
             case 'Enotsend':
                 return $this->messages[] = 'danger.Reset hesla se nezdařil';
-                break;        
+                break;
+            case 'resetAccount':
+                return $this->messages[] = 'success.Heslo změněno, můžete se přihlásit';
+                break;                
             default: null;                                       
          /*
         case 'failUpdate':
@@ -116,10 +126,8 @@ class Messages
             return  $this->add(md5('failActive'),'Aktivace účtu se nezdaržila kotaktujte prosím Admina')->style('danger');
         case 'failBookmark':
             return $this->add(md5('failBookmark'),'Záložka neuložena zkuste to znovu, pokud se tato chyba bude opakovat kontaktujte Admina')->style('danger');
-        case 'reset':
-            return $this->add(md5('reset'),'Prosím zkotrolujte si Váš email')->style('success');
-        case 'resetAccount':
-            return $this->add(md5('resetAccount'),'Heslo změněno, můžete se přihlásit')->style('success');
+      
+        
         case 'send':
             return $this->add(md5('send'),'Zpráva odeslána')->style('danger');
         case 'permission':

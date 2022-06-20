@@ -7,12 +7,12 @@ use eftec\bladeone\BladeOne;
 class Forms {
 
     public function __construct(
-                    private string $class = 'text-center',
-                    private string $method = 'POST',
-                    private ?string $target = null,
-                    private array $values = [],
-                    private string $autocomplete = 'off',
-                    private string $enctype = 'url-encoded'){}
+                private string $class = 'text-center',
+                private string $method = 'POST',
+                private ?string $target = null,
+                private array $values = [],
+                private string $autocomplete = 'off',
+                private string $enctype = 'url-encoded'){}
 
     public function options(array $options)
     {

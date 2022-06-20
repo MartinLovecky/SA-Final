@@ -339,7 +339,7 @@
       </div>
       <div class="box__ghost-shadow"></div>
     </div>
-    
+    @php dd($selector); @endphp
     <div class="box__description">
       <div class="box__description-container">
         <div class="box__description-title">Upss !</div>

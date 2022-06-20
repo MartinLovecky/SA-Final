@@ -7,7 +7,7 @@
     <title>{{ $selector->title }}</title>
     <meta property="og:type" content="website">
     <meta name="description" content="Adventure|Sci-fi|Fantasy story where the protagonist discovers that he lives in a much more mysterious and amazing world ">
-    <link rel="icon" type="image/png" sizes="256x256" href="http://sadventure.xf.cz/public/image/android-chrome-256x256.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/public/image/android-chrome-256x256.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/cosmo/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&amp;display=swap">
@@ -41,7 +41,7 @@
 @isset($selector->fristQueryValue)
 @php  $message->getQueryMessage(); @endphp
 @endisset
-@php  $message->getMessage(); @endphp
+@php $message->getMessage(); @endphp
 @if($message->isNotEmpty())
   {!! $message->display() !!}
 @endif

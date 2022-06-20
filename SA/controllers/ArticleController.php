@@ -6,6 +6,9 @@ use HTMLPurifier;
 use Envms\FluentPDO\Query;
 use Repse\Sa\http\Request;
 
+/**
+ * Creating , updating , and deleting articles
+ */
 class ArticleController{
 
     public function __construct(protected Query $db, protected HTMLPurifier $purifier){}
