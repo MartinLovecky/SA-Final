@@ -18,9 +18,3 @@
         {!!  $wrapper->next_page()  !!}
     </ul>
 </nav>
-{{-- 
-    
-    1) $selector->article  is set && $selector->page is set;
-    2) we neee call fuction $article->getArticle($article,$page);
-
---}}

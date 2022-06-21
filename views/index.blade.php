@@ -33,12 +33,12 @@
                     <li><a href="/show/isama/1">Isama</a>&nbsp;→&nbsp;Navazuje na příběh Samuela.<br></li>
                     <li><a href="/show/isamanh/1">Nový Horizont</a>&nbsp;→&nbsp;Pokračování Isamova příběhu.<br></li>
                     <li><a href="/show/isamanw/1">Nový Svět</a>&nbsp;→&nbsp;Závěrečná část Isamova příběhu<br></li>
-                    <li><a href="/show//1">Angel &amp; Eklips</a>&nbsp;→&nbsp;Příběh má spojitost s příběhem Allwina.<br></li>
+                    <li><a href="/show/angel/1">Angel &amp; Eklips</a>&nbsp;→&nbsp;Příběh má spojitost s příběhem Allwina.<br></li>
                     <li><a href="/show/mry/1">Mr.Y</a>&nbsp;→&nbsp;Vysvětluje původ Mr.?<br></li>
                     <li><a href="/show/white/1">White Star</a>&nbsp;→&nbsp;Příběh popisuje minulost White Stara.<br></li>
                     <li><a href="/show/terror/1">Lord Terror</a>&nbsp;→&nbsp;Důležitá postava v Novém světě.<br></li>
-                    <li><a href="/show//1">Hyperion</a>&nbsp;→&nbsp;Historie Nového světa.<br></li>
-                    <li><a href="/show//1">Démoni</a>&nbsp;→&nbsp;Příběh vysvětlující rasu Démonů.<br></li>
+                    <li><a href="/show/hyperion/1">Hyperion</a>&nbsp;→&nbsp;Historie Nového světa.<br></li>
+                    <li><a href="/show/demoni/1">Démoni</a>&nbsp;→&nbsp;Příběh vysvětlující rasu Démonů.<br></li>
                 </ul>
                 <h4>Vysvětlivky</h4>
                 <ul class="index_list-style">
