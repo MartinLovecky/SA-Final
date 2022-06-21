@@ -10,6 +10,10 @@ use Repse\Sa\tool\Selector;
  */
 class Article
 {
+    public ?array $storyNames = [];
+    public ?array $storyLinks = [];
+    public ?array $storyDescription = [];
+    public ?array $storyImage = [];
     public ?string $articleBody = null;
     public ?string $articleChapter = null;
   
@@ -38,17 +42,47 @@ class Article
             return $this->articleBody;
             }
         }
+        }
     }
-    }
+
     /**
      * //ANCHOR: this fuction should be easy. I don't have so much time now but I hope make some progress
      *
-     * @return string
+     * @return array
      */
     public function overview()
     {
-        //TODO: show image for each article [image can load friom server or external link]
-        //TODO: show short description of the article [?hardcoded or stored in database]
-        //TODO: show clickable link to the article [?hardcoded(dynamicly possible) or stored in database]
+        //FIXME: Need fix css for articlers.blade.php
+        /**
+         * If you want load from database
+         * $stmt = $this->db->from('table.name');
+         * $result = $stmt->fetchAll();
+         * return $result;
+
+         * foreach ($article->overview as $articleItem){
+         *      $articleItem['img']; etc
+         * }
+         * ##############################################
+         *  IF you want load from external source each image just hardcode it is best :D 
+         * <img src="YOUR link" class="img-fluid" alt="img" />
+         * 
+         * IF you want use local storage without DB  or you can assure that external links have same structure only different predictable ending
+         *  /public/image/folderToImages/previewXXX.png
+         * for($i=0; $i < MAX; $i++){
+         *     <img src="/public/image/folderToImages/preview{{$i}}.png" class="img-fluid" alt="img" />
+         * } 
+         */
+        //gets array with information [$key=>'name.descript.linkToImg']
+        $overviewData = require($_SERVER['DOCUMENT_ROOT'].'/app/storyOverview.php');
+        foreach($overviewData as $key => $value){ 
+            $split = explode('.', $value);
+            /*
+            $this->storyNames = $split;
+            $this->storyLinks = $key;
+            $this->storyDescription = $split[1];
+            $this->storyImage = $split[2];
+            */
+            echo '<img src="/public/image/preview/story'.$split[2].'.jpg" class="img-fluid" alt="img" /><div class="col"><h3 class="name"><a href="/show/'.$key.'/1">'.$split[0].'</a></h3><p class="text-left description">'.$split[1].'</p></div>';
+        }
     }
 }
