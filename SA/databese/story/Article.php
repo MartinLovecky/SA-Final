@@ -52,7 +52,6 @@ class Article
      */
     public function overview()
     {
-        //FIXME: Need fix css for articlers.blade.php
         /**
          * If you want load from database
          * $stmt = $this->db->from('table.name');
@@ -77,12 +76,26 @@ class Article
         foreach($overviewData as $key => $value){ 
             $split = explode('.', $value);
             /*
-            $this->storyNames = $split;
+            $this->storyNames = $split[0];
             $this->storyLinks = $key;
             $this->storyDescription = $split[1];
             $this->storyImage = $split[2];
             */
-            echo '<img src="/public/image/preview/story'.$split[2].'.jpg" class="img-fluid" alt="img" /><div class="col"><h3 class="name"><a href="/show/'.$key.'/1">'.$split[0].'</a></h3><p class="text-left description">'.$split[1].'</p></div>';
+            echo '
+            <div class="col mb-4">
+            <div class="card"><img class="card-img-top w-100 d-block fit-cover" src="/public/image/preview/'.$split[2].'.jpg" />
+                <div class="card-body p-4">
+                    <a class="lead font-weight-bold mb-0" href="/show/'.$key.'/1">'.$split[0].'</a>
+                    <p class="card-text">'.$split[1].'</p>
+                    <div class="d-flex"><img class="rounded-circle flex-shrink-0 mr-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
+                        <div>
+                            <p class="font-weight-bold mb-0">John Smith</p>
+                            <p class="text-muted mb-0">Erat netus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>';
         }
     }
 }
