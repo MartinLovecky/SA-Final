@@ -20,7 +20,7 @@ class Selector
     {
         # url[0] = allways empty string
         $this->url = explode('/', trim(str_replace(['<','>','!','@','$'], '', urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
-        $this->queryArray = explode('=', $_SERVER['QUERY_STRING']);
+        $this->queryArray = isset($_SERVER['QUERY_STRING']) ? explode('=', $_SERVER['QUERY_STRING']) : null;
         $this->action = isset($this->url[1]) ? $this->url[1] : $this->action;
         $this->article = isset($this->url[2]) ? $this->url[2] : $this->article;
         $this->page = isset($this->url[3]) ? $this->url[3] : $this->page;
@@ -47,6 +47,10 @@ class Selector
                     $this->title = 'SA | '.$this->url[1].' | '.$this->article ?? $this->article;
                 break;
             }
+        }
+        elseif ($this->url[1] == 'StarAdventure') {
+            $this->viewName = 'index';
+            $this->title = 'SA | index';
         }
         else{
             # If page is not allowed 404

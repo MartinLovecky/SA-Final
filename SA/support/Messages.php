@@ -42,10 +42,12 @@ class Messages
         return !empty($this->messages);
     }
 
+    /* DEPRECATED
     public function display()
     {
         return include_once(dirname(__DIR__, 2) . '/app/message.php');
     }
+    */
 
     public function getQueryMessage()
     {

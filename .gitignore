@@ -3,3 +3,4 @@ public/images/
 vendor/envms/fluentpdo
 .*
 !.gitignore
+table.sql

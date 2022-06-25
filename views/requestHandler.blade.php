@@ -14,7 +14,7 @@ if(property_exists($request,'submit') && $request->submit === 'submit')
         'update'        => $articleController->update($request),
         'delete'        => $articleController->delete($request),
         'create'        => $articleController->create($request),
-        default => null,
+         default => null,
     };
 }
 ?>

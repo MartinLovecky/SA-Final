@@ -21,7 +21,7 @@ class DB{
         $this->dbName = $_ENV['DB_NAME'];
         $this->dbUsername = $_ENV['DB_USER'];
         $this->dbCharset = 'utf8mb4';
-        $this->dbPassword = $_ENV['DB_PASS'] ?? null;
+        $this->dbPassword = /*$_ENV['DB_PASS'] ??*/ null;
         $this->con = $this->connect();
     }
 
