@@ -1,8 +1,8 @@
 # StarAdventure
 
-Before running application you need to create folder called cache and file .env in root directory
+Before running application you need to create folder called cache and file .env in root directory 
 
-Localhost test website using laravel Blade template engine
+Website using laravel Blade template engine
 
 ####Features
 - Login and Register system with validation, csfr protection.
