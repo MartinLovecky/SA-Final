@@ -15,14 +15,17 @@
     "require": {
         "php": ">=5.2"
     },
-    "require-dev": {
-        "simpletest/simpletest": "dev-master#72de02a7b80c6bb8864ef9bf66d41d2f58f826bd"
-    },
     "autoload": {
         "psr-0": { "HTMLPurifier": "library/" },
         "files": ["library/HTMLPurifier.composer.php"],
         "exclude-from-classmap": [
             "/library/HTMLPurifier/Language/"
         ]
+    },
+    "suggest": {
+        "cerdic/css-tidy": "If you want to use the filter 'Filter.ExtractStyleBlocks'.",
+        "ext-iconv": "Converts text to and from non-UTF-8 encodings",
+        "ext-bcmath": "Used for unit conversion and imagecrash protection",
+        "ext-tidy": "Used for pretty-printing HTML"
     }
 }

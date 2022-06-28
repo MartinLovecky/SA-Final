@@ -1,5 +1,6 @@
 <?php
-
+    //:TODO: this file is not needed anymore
+    //:TODO: Make sure to change articlesController
 return [
     'allwin'=>'Allwin.Vysvětluje počátek světa, ve kterém se příběh odehrává.1',
     'samuel'=>'Samuel.Začátek hlavního příběhu.2',

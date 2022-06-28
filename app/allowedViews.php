@@ -1,17 +1,16 @@
 <?php 
-     return [
-        'index',
-        '',
-        'show',
-        'update',
-        'create',
-        'delete',
-        'member',
-        '404',
-        'register',
-        'requestHandler',
-        'login',
-        'logout',
-        'activate',
-        'reset'
-     ];
+   return [
+      'index',
+      '',
+      'show',
+      'update',
+      'create',
+      'delete',
+      'member',
+      '404',
+      'register',
+      'login',
+      'logout',
+      'activate',
+      'reset',
+];

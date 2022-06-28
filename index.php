@@ -1,5 +1,7 @@
 <?php
 
+//NOTE: Please read README.md before using this
+
 use eftec\bladeone\BladeOne;
 
 require(__DIR__ . '/vendor/autoload.php');
@@ -10,7 +12,6 @@ ob_start();
 
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);
-//NOTE: You need create your own .env in root directory 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required(['DB_NAME','DB_USER','DB_HOST','DB_PASS']);
@@ -21,7 +22,7 @@ $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();
 //NOTE: allowedViews must have '' inside array otherwise index will not work.
-//NOTE: Page must exist inside views 
+//NOTE: Page must exist inside folder views example: index.blade.php
 //NOTE: $selector->viewName() is not same as $selector->action !!!
 $selector->allowedViews = require(__DIR__ . '/app/allowedViews.php');
 $selector->viewName();
@@ -29,7 +30,7 @@ $selector->viewName();
 $message = new Repse\Sa\support\Messages($selector);
 $mailer = new Repse\Sa\tool\Mailer();
 //NOTE: $db->con returns fluent PDO (https://www.sitepoint.com/getting-started-fluentpdo/) 
-//NOTE: IF you need use Build in function from PDO or your own functions from DB in other class use only $db
+//NOTE: IF you need use Build-in function from PDO or your own functions from DB in other class use only variable $db
 $db = new Repse\Sa\databese\DB();
 $request = new Repse\Sa\http\Request();
 $request->getRequest();
@@ -39,7 +40,6 @@ $form = new Repse\Sa\tool\html\Forms();
 $member = new Repse\Sa\databese\user\Member($db);
 $validator = new Repse\Sa\support\Validator($member);
 $requestController = new Repse\Sa\controllers\RequestController($db,$mailer,$validator);
-//TODO: ArticleController functions update,delete,create returns void later they should return message
 $article = new Repse\Sa\databese\story\Article($db->con,$selector);
 $articleController = new Repse\Sa\controllers\ArticleController($db->con,$purifier);
 
