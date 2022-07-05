@@ -1541,10 +1541,9 @@ class BladeOne
     public function getCsrfToken($fullToken = false, $tokenId = '_token'): string
     {
         if ($this->csrf_token == '') {
-            $this->regenerateToken($tokenId);
-        }
-        if ($fullToken) {
-            return $this->csrf_token . '|' . $this->ipClient();
+            $this->csrf_token = base64_encode(uniqid(rand(),true).'|'.$_SERVER['REMOTE_ADDR'].'|'.$_SERVER['SERVER_NAME'].'|'.bin2hex(uniqid(rand(),true)));
+            @$_SESSION['_token'] = strrev($this->csrf_token);
+            return $this->csrf_token;
         }
         return $this->csrf_token;
     }

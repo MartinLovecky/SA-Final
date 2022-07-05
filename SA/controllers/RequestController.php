@@ -2,6 +2,7 @@
 
 namespace Repse\Sa\controllers;
 
+use Dotenv\Util\Regex;
 use Repse\Sa\databese\DB;
 use Repse\Sa\tool\Mailer;
 use Repse\Sa\http\Request;
@@ -17,14 +18,14 @@ class RequestController{
      */
     protected $con;
 
-    public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator){
+    public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator, protected Request $request){
         $this->con = $db->con;
     }
     
     public function submitRegister(Request $request)
     {
-        // Best solution for now
-        $header = $this->validator->validateRegister($request);
+        // if validation is successful returns null
+        dd($this->validator->validateRegister($request));
         if (isset($header)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email];

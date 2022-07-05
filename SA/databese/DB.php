@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 use Envms\FluentPDO\Query;
 
-class DB{
+class DB extends Query{
 
     protected string $dbHost;
     protected string $dbName;
@@ -36,7 +36,7 @@ class DB{
             $db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC); 
             $fpdo = new Query($db);
-                return $fpdo;
+            return $fpdo;
 
         }catch(PDOException $exception){
 

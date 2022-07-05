@@ -116,7 +116,7 @@ class Member{
             header('Location: /login?action=active');
         }
     }
-
+    //FIXME
     public function isUnique($username,$email)
     {
         $stmt = $this->db->con->from('members')->select(['username','email']);
@@ -124,12 +124,13 @@ class Member{
         $result = $stmt->fetchAll('username', 'email');
         $emailSearch = array_search($email,array_column($result,'email'));
         $usernameSearch = array_search($username,array_column($result,'username'));
-        
+        return $result;
+        /*
         if($emailSearch || $usernameSearch){
             return false;
-        }
-        //if username and email doenst exist in databese 
-        return true;
+        }else{
+            return true;
+        }*/
     }
 
     public function exists($username)

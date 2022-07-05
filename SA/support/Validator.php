@@ -32,14 +32,14 @@ class Validator
 
     public function validateRegister(Request $request)
     {
-        if($this->propertiesExist($request) && $request->persistent_register == 'yes' && $this->validCSFR($request->_token))
-        {
-            if(!empty($request->username) &&
+        if($this->propertiesExist($request) && $request->persistent_register == 'yes' && $this->validCSFR($request->_token)){   
+            if( !empty($request->username) &&
                 !empty($request->email) &&
                 !empty($request->password) && 
-                !empty($request->password_again)){
-                if (!$this->member->isUnique($request->username,$request->email)){
-                    return '/regiter?action=Uexist';
+                !empty($request->password_again)
+            ){
+                if ($this->member->isUnique($request->username,$request->email)){
+                    return dd( $this->member->isUnique($request->username,$request->email)); //'/regiter?action=Uexist';
                 }
                 if(strlen($request->username) < 4 && strlen($request->username) > 35){
                     return '/regiter?action=Ulen';
@@ -59,9 +59,9 @@ class Validator
                 if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
                     return '/regiter?action=FilterE';
                 }
-            return null;
+            }else{
+                return '/regiter?action=FField';
             }
-            return '/regiter?action=FField';
         }else{
             return '/regiter?action=Persistent';
         }
