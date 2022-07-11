@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ $selector->title }}</title>
     <meta property="og:type" content="website">
     <meta name="description" content="Adventure|Sci-fi|Fantasy story where the protagonist discovers that he lives in a much more mysterious and amazing world ">
@@ -18,30 +17,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.18.0/full-all/ckeditor.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1"></script>
     <script>
-        function onSubmit(token) {
-            alert('Thanks ' + document.getElementById('field').value);
-        }
-        function validate(event){
-            event.preventDefault();
-            if(!document.getElementById('filed').value){
-                alert('You must add text to required field');
-            }else{
-                grecaptcha.execute();
-            }
-        }
-        function onload(){
-            var element = document.getElementById('submit');
-            element.onclick = validate(element);
-        }
-    </script>  
+        grecaptcha.ready(function() {
+        // do request for recaptcha token
+        // response is promise with passed token
+            grecaptcha.execute('6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1', {action:'validate_captcha'})
+                      .then(function(token) {
+                // add token value to form
+                document.getElementById('g-recaptcha-response').value = token;
+            });
+        });
+    </script>
 </head>
 <body>
 
 @isset($selector->fristQueryValue)
     @php  $message->getQueryMessage(); @endphp
 @endisset
+
 @php $message->getMessage(); @endphp
 
 @if($message->isNotEmpty())

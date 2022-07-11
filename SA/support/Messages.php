@@ -14,12 +14,20 @@ class Messages
     public ?string $message = null;
 
     public function __construct(protected Selector $selector){
+        //REVIEW: IDK what this do maybe nothing
         $this->params = (isset($this->selector->secondQueryValue)) ? explode('.',$this->selector->secondQueryValue) : $this->params;
         $this->article =  (isset($this->params[0])) ? $this->params[0] : $this->article;
         $this->page = (isset($this->params[1])) ? (int)$this->params[1] : $this->page;
-
     }
-
+    
+    /**
+     * message should have this structure style.message
+     * where style is boostrap color for text (primary,secondary etc.)
+     * example: $message->add('primary.yourmessage');
+     * 
+     * @param string $message
+     * @return void
+     */
     public function add(string $message)
     {
         $this->messages[] = $message;

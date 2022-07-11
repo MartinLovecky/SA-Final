@@ -41,4 +41,8 @@ $articleController = new Repse\Sa\controllers\ArticleController($db->con,$purifi
 
 $member->checkRemember();
 
+if(isset($_SESSION['message'])){
+    $message->add('danger.'.$_SESSION['message']);
+}
+
 echo $blade->run($selector->viewName,include(__DIR__ . '/app/viewVariables.php'));

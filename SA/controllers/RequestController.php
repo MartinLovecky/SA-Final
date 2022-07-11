@@ -2,7 +2,6 @@
 
 namespace Repse\Sa\controllers;
 
-use Dotenv\Util\Regex;
 use Repse\Sa\databese\DB;
 use Repse\Sa\tool\Mailer;
 use Repse\Sa\http\Request;
@@ -12,11 +11,12 @@ use Repse\Sa\databese\user\Member;
 class RequestController{
 
     /**
-     * Fluent PDO connection 
-     * Envms\FluentPDO\Query;
+     * Fluent PDO syntax
+     * @param class Envms\FluentPDO\Query
      * @var [FuentPDO]
      */
     protected $con;
+
 
     public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator, protected Request $request){
         $this->con = $db->con;
@@ -25,10 +25,11 @@ class RequestController{
     public function submitRegister(Request $request)
     {
         // if validation is successful returns null
+        $captcha = $this->validator->validateCaptcha($request);
         $header = $this->validator->validateRegister($request);
-        if(isset($header)) {
+        if(isset($header) || isset($captcha)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
-            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email];
+            @$_SESSION = ['old_username'=>$request->username,'old_email'=>$request->email,'captcha_message'=>$captcha];
             header("location: $header");            
             die();
         }
