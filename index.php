@@ -1,14 +1,10 @@
 <?php
 
-//NOTE: Please read README.md before using this
+session_start();
 
 use eftec\bladeone\BladeOne;
 
 require(__DIR__ . '/vendor/autoload.php');
-
-session_set_cookie_params(0);
-session_start();
-ob_start();
 
 $config = HTMLPurifier_Config::createDefault();
 $purifier = new HTMLPurifier($config);

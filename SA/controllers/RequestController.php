@@ -25,11 +25,12 @@ class RequestController{
     public function submitRegister(Request $request)
     {
         // if validation is successful returns null
-        dd($this->validator->validateRegister($request));
-        if (isset($header)) {
+        $header = $this->validator->validateRegister($request);
+        if(isset($header)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'old_email'=>$request->email];
-            header("Locaction: $header"); die;
+            header("location: $header");            
+            die();
         }
         //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);

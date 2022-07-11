@@ -38,33 +38,31 @@ class Validator
                 !empty($request->password) && 
                 !empty($request->password_again)
             ){
-                if ($this->member->isUnique($request->username,$request->email)){
-                    return dd( $this->member->isUnique($request->username,$request->email)); //'/regiter?action=Uexist';
+                if($this->member->isUnique($request->username,$request->email != null)){
+                    return '/register?action=Uexist';
                 }
                 if(strlen($request->username) < 4 && strlen($request->username) > 35){
-                    return '/regiter?action=Ulen';
+                    return '/register?action=Ulen';
                 }
                 if (!ctype_alnum($request->username)) {
-                    return '/regiter?action=UNum';
+                    return '/register?action=UNum';
                 }
                 if (strlen($request->password) < 6 || strlen($request->password_again) < 6){
-                    return '/regiter?action=PWDLen';
+                    return '/register?action=PWDLen';
                 }
                 if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&]).*$/',$request->password)){
-                    return '/regiter?action=PWDSpec';
+                    return '/register?action=PWDSpec';
                 }
                 if ($request->password !== $request->password_again){
-                    return '/regiter?action=PWDAga';
+                    return '/register?action=PWDAga';
                 }
                 if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
-                    return '/regiter?action=FilterE';
+                    return '/register?action=FilterE';
                 }
-            }else{
-                return '/regiter?action=FField';
             }
-        }else{
-            return '/regiter?action=Persistent';
+            return '/register?action=FField';
         }
+        return '/register?action=Persistent';
     }
 
     public function validateLogin(Request $request)
@@ -73,7 +71,7 @@ class Validator
             if(!empty($request->username) && !empty($request->password))
             {
                 if (!$this->member->exists($request->username)) {
-                    return '/regiter?action=UNexist';
+                    return '/register?action=UNexist';
                 }
             }
         }

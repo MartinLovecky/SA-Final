@@ -64,10 +64,9 @@ class Member{
             $this->logged = false;
             $this->age = $memberdata['age'];
             $this->location = $memberdata['location']; 
-        }else{ 
+        } 
             //$this->message->add(md5('usrnnotexist'),'Uživatel neexistuje')->style('danger');
             return null;
-        }
     }
 
     public function checkRemember()
@@ -76,9 +75,8 @@ class Member{
             $memberdata = $this->db->getMemeberData($_COOKIE['remember']);
             self::setSession($memberdata);
             header('Location: /member/'.$this->username.'?action=logged'); 
-        }else {
-            return null;
         }
+            return null;
     }
 
     protected function checkActivation()
@@ -116,32 +114,29 @@ class Member{
             header('Location: /login?action=active');
         }
     }
-    //FIXME
+ 
     public function isUnique($username,$email)
     {
         $stmt = $this->db->con->from('members')->select(['username','email']);
-        // structure of result is ['$key' => ['username' => $username , 'email' => $email] , ... (etc)] 
-        $result = $stmt->fetchAll('username', 'email');
-        $emailSearch = array_search($email,array_column($result,'email'));
-        $usernameSearch = array_search($username,array_column($result,'username'));
-        return $result;
-        /*
-        if($emailSearch || $usernameSearch){
-            return false;
-        }else{
-            return true;
-        }*/
+        foreach($stmt as $row){
+            $usernameSearch = in_array($username,$row); // now true
+            $emailSearch = in_array($email,$row); // now false
+            if ($usernameSearch || $emailSearch) {
+                return 'false';
+            }
+                return null;
+        }
     }
 
     public function exists($username)
     {
         $stmt = $this->db->con->from('members')->select('username')->where('username',$username)->execute();
         $result =  $stmt->fetchAll();
-        if(empty($result)){
+        if(empty($result))
+        {
             return false;
-        }else{
-            return true;
         }
+            return true;
     }
 
     public function logout()
