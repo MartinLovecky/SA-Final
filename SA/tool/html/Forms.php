@@ -36,6 +36,7 @@ class Forms {
             return "<form method='$this->method' target='".$blade->run($this->target,$this->values)."' class='$this->class' autocomplete='$this->autocomplete' enctype='$this->enctype'>";
         }
     }
+
 }
 
 

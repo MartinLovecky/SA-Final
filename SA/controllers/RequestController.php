@@ -54,7 +54,7 @@ class RequestController{
         $body = str_replace(['YourUsername','MemberID','ActivisionHash','URL'],[$this->request->username,$id,$activate,$_SERVER['DOCUMENT_ROOT']],$emailTemplate);
         $info = ['subject'=>'Potvrzení registrace','to'=>$this->request->email];
         if($this->email->sender($body,$info)){
-            header("Location: /login?action=joined"); die;
+            header("Location: /login?action=joined"); die();
         }
     }
 
@@ -64,7 +64,7 @@ class RequestController{
         if (isset($header)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['style'=>'danger','old_username'=>$request->username];
-            header("Locaction: $header"); die;
+            header("Locaction: $header"); die();
         }
         if (isset($request->remeber) && $request->remeber == 'yes') {
             setcookie('remeber',$request->username,time()+(86400 * 7),"/");

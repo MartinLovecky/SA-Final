@@ -48,14 +48,8 @@ class Selector
                 break;
             }
         }
-        elseif ($this->url[1] == 'StarAdventure') {
-            $this->viewName = 'index';
-            $this->title = 'SA | index';
-        }
-        else{
-            # If page is not allowed 404
-            $this->viewName = '404';
-            $this->title = 'SA | 404';
-        }
+        # If page is not allowed 404
+        $this->viewName = '404';
+        $this->title = 'SA | 404';
     }
 }

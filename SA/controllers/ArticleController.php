@@ -28,7 +28,7 @@ class ArticleController{
        $this->db->insertInto($request->article,$values)->execute();
 
        if($request->submit == 'submit'){ 
-            header("Location: /update?action=created"); die;
+            header("Location: /update?action=created"); die();
         }
     }
 
@@ -42,16 +42,16 @@ class ArticleController{
         $this->db->update($request->article)->set($values)->where('pg_num',$request->page)->execute();
         
         if($request->submit == 'submit'){ 
-            header("Location: /update?action=updated"); die;
+            header("Location: /update?action=updated"); die();
         }
     }
 
-    public function delete(Request $request)  : void
+    public function delete(Request $request)  
     {
         $this->db->deleteFrom($request->article)->where('pg_num',$request->page)->execute();
         
         if($request->submit == 'submit'){ 
-            header("Location: /update?action=deleted"); die;
+            header("Location: /update?action=deleted"); die();
         }
     }
    

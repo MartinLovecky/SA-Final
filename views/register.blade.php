@@ -18,14 +18,21 @@
 	    <div class="form-check"><input type="checkbox" name="persistent_register" value="yes" class="form-check-input" id="formCheck-1" required/><label class="form-check-label" for="formCheck-1">Souhlasím:</label></div>
 		<a href="/terms" class="forgot">Smluvní podmínky</a>
 		<a href="/vop" class="forgot">Ochrana soukromí</a>
-	    <div class="form-group mb-3"><button class="btn btn-primary btn-lg d-block w-100" name="submit" type="submit" value="submit">Register</button></div>
+	    <div class="form-group mb-3"><button class="btn btn-primary btn-lg d-block w-100 g-recaptcha"
+        	 data-sitekey="6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1" 
+        	 data-callback='onSubmit' id="captcha" name="submit" type="submit" value="submit">Register</button>
+		</div>
         <hr/>
 		<a href="/login" class="forgot">Máte již účet?</a>
 		@csrf
 		<input type="hidden" name="type" value='register'>
     </form>
+	<script>
+		function onSubmit(token) {
+		  document.getElementById("captcha").submit();
+		}
+	  </script>
 </section>
-
 @else
 {{ \header('Location: /member/'.$member->username.'')}}
 @endif

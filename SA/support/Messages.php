@@ -14,7 +14,8 @@ class Messages
     public ?string $message = null;
 
     public function __construct(protected Selector $selector){
-        //REVIEW: IDK what this do maybe nothing
+        //example: create/allwin/1?action=failExist&allwin=1 outputs: Stránka nexistuje Vytvořte jí /create/allwin/1
+        //maybe encode the query to be more safe 
         $this->params = (isset($this->selector->secondQueryValue)) ? explode('.',$this->selector->secondQueryValue) : $this->params;
         $this->article =  (isset($this->params[0])) ? $this->params[0] : $this->article;
         $this->page = (isset($this->params[1])) ? (int)$this->params[1] : $this->page;
@@ -49,13 +50,6 @@ class Messages
     {
         return !empty($this->messages);
     }
-
-    /* DEPRECATED
-    public function display()
-    {
-        return include_once(dirname(__DIR__, 2) . '/app/message.php');
-    }
-    */
 
     public function getQueryMessage()
     {

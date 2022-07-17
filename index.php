@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-
 use eftec\bladeone\BladeOne;
 
 require(__DIR__ . '/vendor/autoload.php');
@@ -14,6 +13,7 @@ $dotenv->required(['DB_NAME','DB_USER','DB_HOST','DB_PASS']);
 
 $blade = new BladeOne(__DIR__ . '/views', __DIR__ . '/cache',BladeOne::MODE_AUTO);
 $blade->setBaseUrl('/public');
+//NOTE: Before using @csrf go to \Sa\support\Bladecsfr.php and read it
 $blade->getCsrfToken();
 
 $selector = new Repse\Sa\tool\Selector();

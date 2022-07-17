@@ -8,27 +8,16 @@
     <meta name="description" content="Adventure|Sci-fi|Fantasy story where the protagonist discovers that he lives in a much more mysterious and amazing world ">
     <link rel="icon" type="image/png" sizes="256x256" href="@asset("image/android-chrome-256x256.png")">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.1.3/dist/cosmo/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aldrich" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie" />
-    <link rel="stylesheet" type="text/css" href="@asset("css/styles.min.css")" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aldrich" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie" >
+    <link rel="stylesheet" type="text/css" href="@asset("css/styles.min.css")" >
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.18.0/full-all/ckeditor.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1"></script>
-    <script>
-        grecaptcha.ready(function() {
-        // do request for recaptcha token
-        // response is promise with passed token
-            grecaptcha.execute('6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1', {action:'validate_captcha'})
-                      .then(function(token) {
-                // add token value to form
-                document.getElementById('g-recaptcha-response').value = token;
-            });
-        });
-    </script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
 
