@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.18.0/full-all/ckeditor.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
 

@@ -46,6 +46,15 @@ class Member{
         $this->bookmark = isset($_SESSION['contentBook']) ? json_decode($_SESSION['contentBook'],true) : $this->bookmark;
     }
 
+    private function decode($content)
+    {
+        $split = explode('#',$content);
+        $decoded = explode('-',base64_decode($split[0]));
+        $username = $decoded[0];
+        $email = $decoded[1];
+        return [$username,$email,$split[1]];
+    }
+
     public static function setSession(array $result) : void
     {
         foreach ($result as $key => $value) {
@@ -89,38 +98,51 @@ class Member{
         }
     }
 
+    //FIXME need more testing
     public function activateMember(Selector $selector)
     {
-        // Check hash in db table and given hash
-        // URL/activate?x=MemberID&y=ActivasionHash
-        $backup  = base64_encode('FailedActivation');
-        $id = $selector->fristQueryValue;
-        if('FailedActivation' != base64_decode($id)){
-            $hash = $selector->secondQueryValue;
-            $stmt = $this->db->con->from('members')->select('active')->where('memberID',$id)->execute();
+        // URL/activate?x=encodedUserID&y=ActivasionHash
+        if(isset($selector->fristQueryValue) && isset($selector->secondQueryValue))
+        {
+            $decoded = $this->decode($selector->secondQueryValue);
+
+            $memberID = $selector->fristQueryValue;
+            $hash = $decoded[2];
+            $username = $decoded[0];
+            $email = $decoded[1];
+
+            $stmt = $this->db->con->from('members')->where('memberID',$memberID);
             $data = $stmt->fetch();
-            if($data == $hash){
+
+            return dd($data);
+
+            if($data === $hash){
                 $set = ['active'=>'yes'];
-                $query = $this->db->con->update('members', $set, $id)->execute();
+                $query = $this->db->con->update('members')->set($set)->where('memberID',$memberID)->execute();
                 if($query){
-                    header('Location: /activate?action='.$backup.'&x='.$id);
+                    header('Location: /login?action=active');
                 }
             }
-            header('Location: /activate?action='.$backup.'&x='.$id);
-        }else{
-            $failID = $selector->secondQueryValue;
-            $set = ['active'=>'yes']; 
-            $query = $this->db->con->update('members', $set, $failID)->execute();
-            header('Location: /login?action=active');
+            //REVIEW: check if memberID exists in database
+           
         }
+        else{
+        //FIXME: ONLY FOR testing otherwise we should display error message something like 'Missing hash values please click <a href="someform">here to put your email address</a>'
+            header('Location: /failedActivation?action=active');
+        }
+    }
+
+    public function failedActivation($hash,$memberID)
+    {
+
     }
  
     public function isUnique($username,$email)
     {
         $stmt = $this->db->con->from('members')->select(['username','email']);
         foreach($stmt as $row){
-            $usernameSearch = in_array($username,$row); // now true
-            $emailSearch = in_array($email,$row); // now false
+            $usernameSearch = in_array($username,$row); 
+            $emailSearch = in_array($email,$row); 
             if ($usernameSearch || $emailSearch) {
                 return 'false';
             }
@@ -145,3 +167,28 @@ class Member{
         header('Location: /index');
     }
 }
+
+/*
+
+        // Check hash in db table and given hash
+        // URL/activate?x=MemberID&y=ActivasionHash
+        $backup  = base64_encode('FailedActivation');
+        $id = $selector->fristQueryValue;
+        if('FailedActivation' != base64_decode($id)){
+            $hash = $selector->secondQueryValue;
+            $stmt = $this->db->con->from('members')->select('active')->where('memberID',$id)->execute();
+            $data = $stmt->fetch();
+            if($data == $hash){
+                $set = ['active'=>'yes'];
+                $query = $this->db->con->update('members', $set, $id)->execute();
+                if($query){
+                    header('Location: /activate?action='.$backup.'&x='.$id);
+                }
+            }
+            header('Location: /activate?action='.$backup.'&x='.$id);
+        }else{
+            $failID = $selector->secondQueryValue;
+            $set = ['active'=>'yes']; 
+            $query = $this->db->con->update('members', $set, $failID)->execute();
+            header('Location: /login?action=active');
+        }*/

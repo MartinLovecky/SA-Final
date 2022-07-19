@@ -1,5 +1,5 @@
 @extends('incl.app')
-@section($selector->viewName)    
+@section($selector->viewName)   
 <header class="index_header">
     <div class="container-fluid d-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
         <div class="row index_main">

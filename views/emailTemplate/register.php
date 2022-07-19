@@ -43,7 +43,7 @@
         </tbody>
     </table>
     <span style="text-align:center;display:block">
-       <a href="URL/activate?x=MemberID&y=ActivasionHash" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
+       <a href="URL/activate?x=MemberID&y=ACHASH" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
            Aktivovat účet &nbsp;»
        </a>
    </span>

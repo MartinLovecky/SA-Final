@@ -18,7 +18,7 @@ class RequestController{
     protected $con;
 
 
-    public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator, protected Request $request){
+    public function __construct(protected DB $db,protected Mailer $email,protected Validator $validator){
         $this->con = $db->con;
     }
     
@@ -27,32 +27,34 @@ class RequestController{
         // if validation is successful returns null
         $captcha = $this->validator->validateCaptcha($request);
         $header = $this->validator->validateRegister($request);
+
         if(isset($header) || isset($captcha)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
             @$_SESSION = ['old_username'=>$request->username,'old_email'=>$request->email,'captcha_message'=>$captcha];
             header("location: $header");            
             die();
-        }
+        } 
         //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
-        $activate = md5(uniqid(rand(),true));
+        $activate = base64_encode($request->username.'-'.$request->email).'#'.md5(uniqid(rand(),true));
         $values = [
-            'username'=>$this->request->username,
+            'username'=>$request->username,
             'password'=>$hashPassword,
-            'email'=>$this->request->email,
+            'email'=>$request->email,
             'active'=>$activate,
             'permission'=>'user',
             'avatar'=>'empty_profile.png',
             'bookmarkCount'=>0,
             'visible'=>1
         ];
-        
+       
         $this->con->insertInto('members')->values($values)->execute();
         $id = $this->db->getID($request->username);
+
         //Parse data to email template and send email
         $emailTemplate = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/views/emailTemplate/register.php');
-        $body = str_replace(['YourUsername','MemberID','ActivisionHash','URL'],[$this->request->username,$id,$activate,$_SERVER['DOCUMENT_ROOT']],$emailTemplate);
-        $info = ['subject'=>'Potvrzení registrace','to'=>$this->request->email];
+        $body = str_replace(['YourUsername','MemberID','ACHASH','URL'],[$request->username,$id,$activate,$_SERVER['SERVER_NAME']],$emailTemplate);
+        $info = ['subject'=>'Potvrzení registrace','to'=>$request->email];
         if($this->email->sender($body,$info)){
             header("Location: /login?action=joined"); die();
         }
@@ -60,10 +62,11 @@ class RequestController{
 
     public function submitLogin(Request $request)
     {
+        $captcha = $this->validator->validateCaptcha($request);
         $header = $this->validator->validateLogin($request);
-        if (isset($header)) {
+        if (isset($header) || isset($captcha)) {
             //Variables that we want display after redirect store to SESSION ... !!! never store password
-            @$_SESSION = ['style'=>'danger','old_username'=>$request->username];
+            @$_SESSION = ['style'=>'danger','old_username'=>$request->username,'captcha_message'=>$captcha];
             header("Locaction: $header"); die();
         }
         if (isset($request->remeber) && $request->remeber == 'yes') {

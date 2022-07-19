@@ -48,8 +48,10 @@ class Selector
                 break;
             }
         }
+        else{
         # If page is not allowed 404
         $this->viewName = '404';
         $this->title = 'SA | 404';
+        }
     }
 }

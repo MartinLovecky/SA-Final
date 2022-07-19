@@ -65,8 +65,8 @@ class Validator
     {
         if ($this->propertiesExist($request) &&
             $this->validCSFR($request->_token)&&
-            $request->persistent_register == 'yes') {
-            if ($this->member->isUnique($request->username, $request->email != null)) {
+            $request->persistent_register == 'yes'){
+            if ($this->member->isUnique($request->username,$request->email) === 'false') {
                 return '/register?action=Uexist';
             }
             if (strlen($request->username) < 4 && strlen($request->username) > 35) {
@@ -78,6 +78,7 @@ class Validator
             if (strlen($request->password) < 6 || strlen($request->password_again) < 6) {
                 return '/register?action=PWDLen';
             }
+            //lowercase,uppercase,special symbol,number
             if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%^&]).*$/', $request->password)) {
                 return '/register?action=PWDSpec';
             }
@@ -87,8 +88,9 @@ class Validator
             if (!filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
                 return '/register?action=FilterE';
             }
+        }else{
+            return '/register?action=FField';
         }
-        return '/register?action=FField';
     }
 
     public function validateLogin(Request $request)

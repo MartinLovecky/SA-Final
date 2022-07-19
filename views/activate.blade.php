@@ -1,1 +1,5 @@
-@php  $member->activateMember($selector);  @endphp
+@php  
+
+$member->activateMember($selector);  
+
+@endphp
