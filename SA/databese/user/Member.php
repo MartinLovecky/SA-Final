@@ -2,6 +2,7 @@
 
 namespace Repse\Sa\databese\user;
 
+use Envms\FluentPDO\Queries\Select;
 use Repse\Sa\databese\DB;
 use Repse\Sa\tool\Selector;
 
@@ -46,13 +47,18 @@ class Member{
         $this->bookmark = isset($_SESSION['contentBook']) ? json_decode($_SESSION['contentBook'],true) : $this->bookmark;
     }
 
-    private function decode($content)
+    private function decode(Selector $selector)
     {
-        $split = explode('#',$content);
-        $decoded = explode('-',base64_decode($split[0]));
+        $activation = $selector->thirdQueryValue;
+        $decoded = explode('-',base64_decode($selector->secondQueryValue));
         $username = $decoded[0];
         $email = $decoded[1];
-        return [$username,$email,$split[1]];
+        return ['hash'=>$activation,'username'=>$username,'email'=>$email];
+    }
+
+    private function getHash(string $hash){
+        $parts = explode('=',$hash);
+        return['db-hash'=>$parts[1]];
     }
 
     public static function setSession(array $result) : void
@@ -101,34 +107,39 @@ class Member{
     //FIXME need more testing
     public function activateMember(Selector $selector)
     {
-        // URL/activate?x=encodedUserID&y=ActivasionHash
-        if(isset($selector->fristQueryValue) && isset($selector->secondQueryValue))
-        {
-            $decoded = $this->decode($selector->secondQueryValue);
-
+        // URL/activate?fristQueryValue=MemberID&secondQueryValue=Username+Email&thirdQueryValue=activationHash
+        if (isset($selector->fristQueryValue) && isset($selector->secondQueryValue)) {
+            $decoded = $this->decode($selector);
             $memberID = $selector->fristQueryValue;
-            $hash = $decoded[2];
-            $username = $decoded[0];
-            $email = $decoded[1];
-
-            $stmt = $this->db->con->from('members')->where('memberID',$memberID);
+            $hash = $decoded['hash'];
+            $username = $decoded['username'];
+            $email = $decoded['email'];
+            // Get member information by MemberID and then
+            $stmt = $this->db->con->from('members')->where('memberID', $memberID);
             $data = $stmt->fetch();
+            $storedHash = $this->getHash($data['active']);
 
-            return dd($data);
-
-            if($data === $hash){
+            //check if MemberID wasnt manually set in url
+             if (isset($data) &&
+                $data['username'] == $username &&
+                $data['email'] == $email &&
+                $storedHash['db-hash'] == $selector->thirdQueryValue) {
                 $set = ['active'=>'yes'];
-                $query = $this->db->con->update('members')->set($set)->where('memberID',$memberID)->execute();
-                if($query){
+                $query = $this->db->con->update('members')->set($set)->where('memberID', $memberID)->execute();
+                if ($query) {
                     header('Location: /login?action=active');
                 }
             }
-            //REVIEW: check if memberID exists in database
-           
-        }
-        else{
-        //FIXME: ONLY FOR testing otherwise we should display error message something like 'Missing hash values please click <a href="someform">here to put your email address</a>'
-            header('Location: /failedActivation?action=active');
+            //REVIEW: Two things can happen
+            //1: $data is false bacause MemberID dont exist in database
+            //2: $data is found in database but username or email or hash is incorrect that means somebody tried to mess with the secondQueryValue
+            //ANCHOR: Solution for case 1
+            if (!$data) {
+                header('Location: /failedActivation?action=WrongMemberID');
+            } else {
+                //FIXME: ONLY FOR testing otherwise we should display error message something like 'Missing hash values please click <a href="someform">here to put your email address</a>'
+                header('Location: /failedActivation?action=active');
+            }
         }
     }
 

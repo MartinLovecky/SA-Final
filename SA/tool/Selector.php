@@ -5,13 +5,14 @@ namespace Repse\Sa\tool;
 class Selector
 {
     protected array $url = [];
-    protected ?array $queryArray = null;
+    public ?array $queryArray = null;
     public ?string $viewName = null;
     public ?string $action = null;
     public ?string $article = null;
     public ?string $page = null;
     public ?string $fristQueryValue = null;
     public ?string $secondQueryValue = null;
+    public ?string $thirdQueryValue = null;
     public ?string $title = null;
     public $file = null;
     public array $allowedViews = [];
@@ -26,6 +27,7 @@ class Selector
         $this->page = isset($this->url[3]) ? $this->url[3] : $this->page;
         $this->fristQueryValue = !empty($this->queryArray[0]) ? filter_input(INPUT_GET, trim($this->queryArray[0])) : $this->fristQueryValue;
         $this->secondQueryValue = isset($this->queryArray[1]) ? filter_input(INPUT_GET, trim(str_replace('&', '', strpbrk($this->queryArray[1], '&')))) : $this->secondQueryValue;
+        $this->thirdQueryValue = isset($this->queryArray[2]) ? filter_input(INPUT_GET, trim(str_replace('&', '', strpbrk($this->queryArray[2], '&')))) : $this->thirdQueryValue;
     }
 
     public function viewName(): void

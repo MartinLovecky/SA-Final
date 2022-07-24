@@ -1,6 +1,7 @@
 @extends('incl.app',['selector'=>$selector,'message'=>$message])
 @section($selector->viewName)
 @if (!$member->logged)
+
 <section class="login-dark">
     {!! 
 		$form->options(['target'=>'requestHandler'])
@@ -17,21 +18,22 @@
     <a href="/register" class="forgot">Nemáte účet ?</a>
     <a href="/reset" class="forgot">Zapomenuté heslo ?</a>
     @csrf
-    <input type="hidden" name="type" value='register'>
+    <input type="hidden" name="type" value='login'>
 	<input type="hidden" id="g-recaptcha-response" name="grecaptcharesponse">
-    <input type="hidden" name="type" value='login'>  
-</form>
-<script>
-    grecaptcha.ready(function() {
-    // do request for recaptcha token
-    // response is promise with passed token
-        grecaptcha.execute('6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1', {action:'validate_captcha'})
-                  .then(function(token) {
-            // add token value to form
-            document.getElementById('g-recaptcha-response').value = token;
-        });
-    });
-</script>
+    <input type="hidden" name="action" value="validate_captcha">
+    </form>
+	<script src="https://www.google.com/recaptcha/api.js?render=6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1"></script>
+	<script>
+		grecaptcha.ready(function() {
+		// do request for recaptcha token
+		// response is promise with passed token
+			grecaptcha.execute('6LeSEOAgAAAAAFoksW-Nm51i4qwmA3zdX0iBeJP1', {action:'validate_captcha'})
+					  .then(function(token) {
+				// add token value to form
+				document.getElementById('g-recaptcha-response').value = token;
+			});
+		});
+	</script>
 </section>
 @else 
 	{{ header('Location: /member/'.$member->username.'') }}

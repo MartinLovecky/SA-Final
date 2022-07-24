@@ -36,7 +36,7 @@ class RequestController{
         } 
         //Progress with registration
         $hashPassword = password_hash($request->password,PASSWORD_BCRYPT);
-        $activate = base64_encode($request->username.'-'.$request->email).'#'.md5(uniqid(rand(),true));
+        $activate = base64_encode($request->username.'-'.$request->email).'&z='.md5(uniqid(rand(),true));
         $values = [
             'username'=>$request->username,
             'password'=>$hashPassword,

@@ -13,7 +13,7 @@
     <div class="container-fluid features-boxed">
         <div class="row" style="padding-top: 16px;">
             <div class="col-md-6 col-xl-3 offset-xl-1">
-                <img class="img-fluid" src="http://sadventure.xf.cz/public/image/avatars/{{$member->avatar}}" alt="member-avatar" />
+                <img class="img-fluid" src="/public/image/avatars/{{$member->avatar}}" alt="member-avatar" />
             </div>
             <div class="col-xl-6 offset-xl-0 member_page_info">
                 <h3 style="color:#ffffff">Informace o vás</h3>

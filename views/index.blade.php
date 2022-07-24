@@ -4,7 +4,7 @@
     <div class="container-fluid d-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
         <div class="row index_main">
             <div class="col-xl-12 d-flex justify-content-center align-items-center">
-                <h1>STAR ADVENTURE</h1>
+                <h1>STARADVENTURE</h1>
             </div>
             <div class="col-xl-12 d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
                 <h2>Dobrodružný / Sci-fi / Fantasy</h2>
